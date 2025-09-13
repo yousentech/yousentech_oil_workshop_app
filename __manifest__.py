@@ -11,6 +11,7 @@
        'security/ir.model.access.csv',
         'security/security.xml',
         "view/services.xml",
+        "view/service_type.xml",
     ],
     "images": [],
 }

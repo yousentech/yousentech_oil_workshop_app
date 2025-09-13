@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="oil_service_type_app_form_view" model="ir.ui.view">
+		<field name="name">oil_service_type_app_form_view</field>
+		<field name="model">oil.service.type</field>
+		<field name="inherit_id" ref="yousentech_oil_workshop.view_oil_service_type_form" />
+		<field name="arch" type="xml">
+			 <field name = 'name' position = "after" >
+				<field name = "services_ids" />
+				 
+			 </field> 
+        </field>
+    </record>
+</odoo>
