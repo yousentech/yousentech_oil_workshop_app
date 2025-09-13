@@ -1,0 +1,101 @@
+<odoo>
+    <record id="view_oil_serives_form" model="ir.ui.view">
+        <field name="name">view_oil_serives_form</field>
+        <field name="model">oil.services</field>
+        <field name="arch" type="xml">
+            <form string="Package">
+                <sheet>
+                    <widget name="web_ribbon" title="Inactive" bg_color="bg-danger"  invisible="active == True"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" string="Active" class="oe_stat_button" icon="fa-bell">
+                            <field name="active"  widget="boolean_button"/>
+                        </button>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="service_product_id" />
+                          
+                        </group>
+                        <group>
+                            <field name="storable_product_required" />
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Service Prices">
+                            <field name="service_price_line_ids" mode="tree,form"
+                                context="{'default_header_id': active_id}">
+                                <tree editable="bottom">
+                                  <!-- <field name="service_type_id" column_invisible="1"/> -->
+                                    <field name="oil_distance_type_id" />
+                                    <field name="car_size_id" />
+                                    <field name="oil_brand_id" />
+                                     <field name="service_price" />
+                                    <field name="tax_id" />
+                                    <field name="price_readonly" />
+                                    <field name="header_id" invisible="1" />
+
+                                </tree>
+
+                                <form>
+                                    <group>
+                                        <field name="oil_distance_type_id" />
+                                        <field name="car_size_id" />
+                                        <field name="oil_brand_id" />
+                                        <field name="service_price" />
+                                        <field name="tax_id" />
+                                        <field name="price_readonly" />
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                         <page string="Service type">
+                            <field name="service_prod_categ_line_ids" mode="tree,form"
+                                context="{'default_header_id': active_id}">
+                                <tree editable="bottom">
+                                    <field name="service_type_id" />
+                                    <field name="product_categ_ids" widget="many2many_tags"/>
+                                    <field name="header_id" invisible="1" />
+
+                                    
+                                </tree>
+
+                                <form>
+                                    <group>
+                                      <field name="service_type_id" />
+                                      <field name="product_categ_ids" />
+                                  
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_oil_serives_tree" model="ir.ui.view">
+        <field name="name">view_oil_serives_tree</field>
+        <field name="model">oil.services</field>
+        <field name="arch" type="xml">
+            <tree string="Services">
+                <field name="name" />
+                <field name="storable_product_required" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_view_oil_serives_view" model="ir.actions.act_window">
+        <field name="name">Services</field>
+        <field name="res_model">oil.services</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_oil_services" name="Services" parent="menu_oil_setup"
+        action="action_view_oil_serives_view" sequence="110" />
+
+</odoo>

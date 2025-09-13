@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_oil_services,oil.services,model_oil_services,,1,1,1,1
+access_oil_services_price_line,oil.services.price.line,model_oil_services_price_line,,1,1,1,1
+access_oil_services_product_categ_line,oil.services.product.categ.line,model_oil_services_product_categ_line,,1,1,1,1

@@ -10,7 +10,7 @@
     "data": [
         # "invoice_report/11_inv_normal.xml" ,
         # "invoice_report/fency_report_invoic.xml",
-        # "view/account_move.xml",
+        "view/services.xml",
     ],
     "images": [],
 }
