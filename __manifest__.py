@@ -8,8 +8,8 @@
     "license": "AGPL-3",
     "installable": True,
     "data": [
-        # "invoice_report/11_inv_normal.xml" ,
-        # "invoice_report/fency_report_invoic.xml",
+       'security/ir.model.access.csv',
+        'security/security.xml',
         "view/services.xml",
     ],
     "images": [],

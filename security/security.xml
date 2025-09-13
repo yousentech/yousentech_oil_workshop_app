@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        
+
+        <record id="group_allow_access_app_setup" model="res.groups">
+            <field name="name">Allow access to app setup</field>
+            <field name="category_id" ref="yousentech_oil_workshop.oil_workshop_category" />
+        </record>
 
 
 
