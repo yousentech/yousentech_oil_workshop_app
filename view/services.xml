@@ -1,7 +1,7 @@
 <odoo>
    
     <menuitem id="menu_oil_app_setup" name="App Setup" parent="yousentech_oil_workshop.menu_cars_root" sequence="4"     
-                groups="yousentech_oil_workshop.group_allow_access_app_setup"/>
+                groups="yousentech_oil_workshop_app.group_allow_access_app_setup"/>
          
 
     <record id="view_oil_serives_form" model="ir.ui.view">
