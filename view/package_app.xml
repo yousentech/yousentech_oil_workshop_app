@@ -34,7 +34,7 @@
                                 <tree editable="bottom">
                                   <!-- <field name="service_type_id" column_invisible="1"/> -->
                                     <field name="car_size_id"  widget="many2many_tags" />
-                                    <field name="service_price" />
+                                    <field name="package_price" />
                                     <field name="tax_id" />
                                     <field name="price_readonly" />
                                     <field name="oil_distance_type_id" />
@@ -46,7 +46,7 @@
                                 <form>
                                     <group>
                                         <field name="car_size_id"  widget="many2many_tags" />
-                                        <field name="service_price" />
+                                        <field name="package_price" />
                                         <field name="tax_id" />
                                         <field name="price_readonly" />
                                         <field name="oil_distance_type_id" />
