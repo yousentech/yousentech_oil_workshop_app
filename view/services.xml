@@ -1,6 +1,6 @@
 <odoo>
    
-    <menuitem id="menu_oil_app_setup" name="App Setup" parent="menu_cars_root" sequence="4"     
+    <menuitem id="menu_oil_app_setup" name="App Setup" parent="yousentech_oil_workshop.menu_cars_root" sequence="4"     
                 groups="yousentech_oil_workshop.group_allow_access_app_setup"/>
          
 
