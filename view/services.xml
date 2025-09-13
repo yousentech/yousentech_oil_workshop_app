@@ -35,8 +35,8 @@
                                 <tree editable="bottom">
                                   <!-- <field name="service_type_id" column_invisible="1"/> -->
                                     <field name="oil_distance_type_id" />
-                                    <field name="car_size_id" />
-                                    <field name="oil_brand_id" />
+                                    <field name="car_size_id"  widget="many2many_tags" />
+                                    <field name="oil_brand_id"  widget="many2many_tags"/>
                                      <field name="service_price" />
                                     <field name="tax_id" />
                                     <field name="price_readonly" />
@@ -47,8 +47,8 @@
                                 <form>
                                     <group>
                                         <field name="oil_distance_type_id" />
-                                        <field name="car_size_id" />
-                                        <field name="oil_brand_id" />
+                                        <field name="car_size_id"  widget="many2many_tags" />
+                                        <field name="oil_brand_id"  widget="many2many_tags"/>
                                         <field name="service_price" />
                                         <field name="tax_id" />
                                         <field name="price_readonly" />

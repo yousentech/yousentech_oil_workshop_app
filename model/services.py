@@ -19,8 +19,8 @@ class services_price_line(models.Model):
 
     oil_distance_type_id = fields.Many2one('oil.vehicle.distance',string="Vehicle distance Type")
 
-    car_size_id = fields.Many2one('oil.car.size', string="Car Size")
-    oil_brand_id = fields.Many2one('oil.brands', string="Oil Brand")
+    car_size_id = fields.Many2many('oil.car.size', string="Car Size")
+    oil_brand_id = fields.Many2many('oil.brands', string="Oil Brand")
     service_price = fields.Float(string="Service price", required=True)
     tax_id = fields.Many2one('account.tax',string="Tax type", required=True,domain=[('type_tax_use','=','sale'),('active','=', True)])
     price_readonly = fields.Boolean(string="Price readony", default=False,copy=False)
