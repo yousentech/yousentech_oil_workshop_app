@@ -7,7 +7,7 @@ class services(models.Model):
     # _inherit = ['vin.no.validation.mixin']
 
     name = fields.Char(string="Service name", required=True,copy=False,index=True)
-    service_product_id = fields.Many2one('product.product',string="Service product",domain=[('detailed_type','=','service')] required=True,copy=False)
+    service_product_id = fields.Many2one('product.product',string="Service product",domain=[('detailed_type','=','service')], required=True,copy=False)
     storable_product_required = fields.Boolean(string="storable product", default=False,copy=False)
     active = fields.Boolean(string='Active', default=True)
     service_price_line_ids = fields.One2many('oil.services.price.line','header_id',ondelete="cascade",copy=False)    
