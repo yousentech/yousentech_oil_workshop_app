@@ -1,0 +1,108 @@
+<odoo>
+   
+    <record id="view_oil_package_app_form" model="ir.ui.view">
+        <field name="name">view_oil_package_app_form</field>
+        <field name="model">oil.package.app</field>
+        <field name="arch" type="xml">
+            <form string="Package">
+                <sheet>
+                    <widget name="web_ribbon" title="Inactive" bg_color="bg-danger"  invisible="active == True"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" string="Active" class="oe_stat_button" icon="fa-bell">
+                            <field name="active"  widget="boolean_button"/>
+                        </button>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="service_type_id" />
+                            <field name="oil_brand_id" />
+                          
+                        </group>
+                        <group>
+                            <field name="package_type" widget="radio" options="{'horizontal': true}" />
+                           <field name="package_product_id" />
+
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Package Prices">
+                            <field name="package_price_line_ids" mode="tree,form"
+                                context="{'default_header_id': active_id}">
+                                <tree editable="bottom">
+                                  <!-- <field name="service_type_id" column_invisible="1"/> -->
+                                    <field name="car_size_id"  widget="many2many_tags" />
+                                    <field name="service_price" />
+                                    <field name="tax_id" />
+                                    <field name="price_readonly" />
+                                    <field name="oil_distance_type_id" />
+                                      
+                                    <field name="header_id" column_invisible="1" />
+
+                                </tree>
+
+                                <form>
+                                    <group>
+                                        <field name="car_size_id"  widget="many2many_tags" />
+                                        <field name="service_price" />
+                                        <field name="tax_id" />
+                                        <field name="price_readonly" />
+                                        <field name="oil_distance_type_id" />
+                                      
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                         <page string="Package services">
+                            <field name="package_services_line_ids" mode="tree,form"
+                                context="{'default_header_id': active_id}">
+                                <tree editable="bottom">
+                                    <field name="service_id" />
+                                    <field name="desc" />
+                                    <field name="header_id" column_invisible="1" />
+
+                                    
+                                </tree>
+
+                                <form>
+                                    <group>
+                                       <field name="service_id" />
+                                       <field name="desc" />
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_oil_package_app_tree" model="ir.ui.view">
+        <field name="name">view_oil_package_app_tree</field>
+        <field name="model">oil.package.app</field>
+        <field name="arch" type="xml">
+            <tree string="Services">
+               <field name="name" />
+                    <field name="name" />
+                    <field name="service_type_id" />
+                    <field name="oil_brand_id" />
+                    <field name="package_type" />
+                    
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_view_oil_package_app_view" model="ir.actions.act_window">
+        <field name="name">Package App</field>
+        <field name="res_model">oil.package.app</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_oil_package_app" name="Package App" parent="menu_oil_app_setup"
+        action="action_view_oil_package_app_view" sequence="120" />
+
+</odoo>

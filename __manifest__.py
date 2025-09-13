@@ -12,6 +12,7 @@
         'security/security.xml',
         "view/services.xml",
         "view/service_type.xml",
+        "view/package_app.xml",
     ],
     "images": [],
 }
