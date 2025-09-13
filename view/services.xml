@@ -95,7 +95,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="menu_oil_services" name="Services" parent="menu_oil_setup"
+    <menuitem id="menu_oil_services" name="Services" parent="yousentech_oil_workshop.menu_oil_setup"
         action="action_view_oil_serives_view" sequence="110" />
 
 </odoo>
