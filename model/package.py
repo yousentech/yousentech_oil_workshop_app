@@ -7,7 +7,7 @@ class packages(models.Model):
     
     name = fields.Char(string="package name", required=True,copy=False,index=True)
     service_type_id = fields.Many2one('oil.service.type',string="Service type", required=True)
-    oil_brand_id = fields.Many2many('oil.brands', string="Oil Brand", required=True)
+    oil_brand_id = fields.Many2many('oil.brands', string="Oil Brand", required=False)
     package_product_id = fields.Many2one('product.product',string="Package product",domain=[('detailed_type','=','service')], required=True,copy=False)
     package_type = fields.Selection(selection=[('primary', 'Primary'),
                                         ('secondary','Secondary') ],  
