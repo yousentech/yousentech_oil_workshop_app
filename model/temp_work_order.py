@@ -5,7 +5,7 @@ from collections import defaultdict
 import re
 
 class WorkOrderTemp(models.Model):
-    _name = 'oil.work.order.temp'
+    _name = 'oil.work.order.app'
     _inherit = ['mail.thread', 'mail.activity.mixin', 'product.catalog.mixin']
     _rec_name = "partner_id"
 
@@ -33,7 +33,7 @@ class WorkOrderTemp(models.Model):
     )
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company, required=True)
     employee_id = fields.Many2one('hr.employee', string='Employee',domain="[('techncian_emp_flag','=',True),('company_id','=',company_id)]")
-    order_line = fields.One2many("oil.work.order.line.temp", "order_id", string="Orders")
+    order_line = fields.One2many("oil.work.order.app.line", "order_id", string="Orders",ondelete="cascade",copy=False)
     city_id = fields.Many2one('oil.city', string='City',)
     picking_type_id = fields.Many2one('stock.picking.type', string='Place Of sale', domain="[('code', '=', ['outgoing']),('company_id','=',company_id)]", required=False)
     negative_quantity_flag = fields.Boolean(string='Failure verify available quantity', default=False)

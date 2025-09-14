@@ -3,7 +3,7 @@ from odoo.exceptions import ValidationError
 
 
 class work_order_line(models.Model):
-    _name = 'oil.work.order.line.temp'
+    _name = 'oil.work.order.app.line'
 
 
     service_id = fields.Many2one('oil.services',string="Service", required=True)
@@ -16,7 +16,7 @@ class work_order_line(models.Model):
     price_subtotal = fields.Float(string='Subtotal', compute='_compute_amount', digits='Account', store=True, help='Total without taxes')
     price_tax = fields.Float(string='Tax Amount', compute='_compute_amount', digits='Account', store=True, help='Total tax amount')
     price_total = fields.Float(string='Total', compute='_compute_amount', digits='Account', store=True, help='Total with taxes')
-    order_id = fields.Many2one("oil.work.order.temp", string="Work Order")
+    order_id = fields.Many2one("oil.work.order.app", string="Work Order",ondelete="cascade",copy=False)
 
     @api.depends('quantity', 'unit_price', 'tax_id')
     def _compute_amount(self):
