@@ -2,7 +2,7 @@
     <!-- Action for Work Order Temp -->
     <record id="action_work_order_temp" model="ir.actions.act_window">
         <field name="name">Temporary Work Orders</field>
-        <field name="res_model">oil.work.order.temp</field>
+        <field name="res_model">oil.work.order.app</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="help" type="html">
             <p>No temporary work orders found. Click "Create" to add one.</p>
@@ -17,8 +17,8 @@
 
     <!-- Tree View -->
     <record id="view_work_order_temp_tree" model="ir.ui.view">
-        <field name="name">oil.work.order.temp.tree</field>
-        <field name="model">oil.work.order.temp</field>
+        <field name="name">oil.work.order.app.tree</field>
+        <field name="model">oil.work.order.app</field>
         <field name="arch" type="xml">
             <tree string="Temporary Work Orders" >
                 <!-- <field name="order_seq"/> -->
@@ -35,8 +35,8 @@
 
     <!-- Form View -->
     <record id="view_work_order_temp_form" model="ir.ui.view">
-        <field name="name">oil.work.order.temp.form</field>
-        <field name="model">oil.work.order.temp</field>
+        <field name="name">oil.work.order.app.form</field>
+        <field name="model">oil.work.order.app</field>
         <field name="arch" type="xml">
             <form string="Temporary Work Order">
                 <header>
@@ -115,8 +115,8 @@
 
     <!-- Kanban View -->
     <record id="view_work_order_temp_kanban" model="ir.ui.view">
-        <field name="name">oil.work.order.temp.kanban</field>
-        <field name="model">oil.work.order.temp</field>
+        <field name="name">oil.work.order.app.kanban</field>
+        <field name="model">oil.work.order.app</field>
         <field name="arch" type="xml">
             <kanban  >
                 <field name="partner_id"/>
