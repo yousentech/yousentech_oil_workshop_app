@@ -57,7 +57,6 @@
                             <field name="car_size_id"/>
                             <field name="oil_distance_type_id"/>
                             <field name="oil_brand_id"/>
-                            <field name="service_type_id"/>
                             <field name="package_id"/>
 
 
@@ -73,6 +72,8 @@
                             <field name="car_version_id"/>
                             <field name="vin_no"/>
                             <field name="current_distance"/>
+                            <field name="service_type_id"/>
+                            
                         </group>
                       
                       

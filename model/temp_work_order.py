@@ -12,7 +12,7 @@ class WorkOrderTemp(models.Model):
     state = fields.Selection(selection=[('draft', 'Draft'), ('confirm', 'confirmed'), ('cancel_confirm', 'Cancel Confirm'), ('cancel_request', 'Cancel Request'), ('in_service', 'Completed')], string='Status', default='draft', tracking=True)
     package_id = fields.Many2one('oil.package.app',string="Package")
     service_type_id = fields.Many2one('oil.service.type',string="Service type")
-    oil_brand_id = fields.Many2many('oil.brands', string="Oil Brand",)
+    oil_brand_id = fields.Many2one('oil.brands', string="Oil Brand",)
    
     oil_distance_type_id = fields.Many2one('oil.vehicle.distance',string="Vehicle distance Type")
     car_size_id = fields.Many2many('oil.car.size', string="Car Size")
