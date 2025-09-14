@@ -40,6 +40,8 @@
         <field name="arch" type="xml">
             <form string="Temporary Work Order">
                 <header>
+                    <field name="state" widget="statusbar"></field>
+
                     <button name="confirm_btn" type="object" string="Confirm Request" class="btn btn-secondary" invisible="state != 'draft'" />
                     <!-- <button name="action_convert_to_work_order" type="object" string="Convert to Work Order" class="btn btn-primary" invisible="state != 'confirm'"/> -->
                 </header>
