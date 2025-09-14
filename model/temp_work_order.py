@@ -109,6 +109,9 @@ class WorkOrderTemp(models.Model):
                     record.vin_no = car_data.vin_no
                     record.car_letters = record.car_letters.upper()
                     record.car_number = record.car_number
+                    record.car_model = record.car_model.id
+                    record.car_version_id = record.car_version_id.id
+                    
                 else:
                     raise ValidationError(
                         _("The current number and letter combination you entered does not exist"))
