@@ -107,10 +107,10 @@ class WorkOrderTemp(models.Model):
                     record.mobile_number = car_data.mobile_number
                     record.car_type_id = car_data.car_type_id.id
                     record.vin_no = car_data.vin_no
-                    record.car_letters = record.car_letters.upper()
-                    record.car_number = record.car_number
-                    record.car_model = record.car_model
-                    record.car_version_id = record.car_version_id.id
+                    record.car_letters = car_data.car_letters.upper()
+                    record.car_number = car_data.car_number
+                    record.car_model = car_data.car_model
+                    record.car_version_id = car_data.car_version_id.id
                     
                 else:
                     raise ValidationError(
