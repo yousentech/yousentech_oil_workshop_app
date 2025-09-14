@@ -20,7 +20,7 @@
         <field name="name">oil.work.order.temp.tree</field>
         <field name="model">oil.work.order.temp</field>
         <field name="arch" type="xml">
-            <tree string="Temporary Work Orders" create="false">
+            <tree string="Temporary Work Orders" >
                 <!-- <field name="order_seq"/> -->
                 <field name="partner_id"/>
                 <!-- <field name="partner_name"/>
@@ -118,7 +118,7 @@
         <field name="name">oil.work.order.temp.kanban</field>
         <field name="model">oil.work.order.temp</field>
         <field name="arch" type="xml">
-            <kanban create="false">
+            <kanban  >
                 <field name="partner_id"/>
                 <!-- <field name="partner_name"/> -->
                 <field name="car_number"/>
