@@ -16,6 +16,7 @@ class WorkOrderTemp(models.Model):
    
     oil_distance_type_id = fields.Many2one('oil.vehicle.distance',string="Vehicle distance Type")
     car_size_id = fields.Many2many('oil.car.size', string="Car Size")
+    mobile_number = fields.Char(string='Mobile Number',)
 
     partner_id = fields.Many2one('res.partner', string='Car Owner')
     car_number = fields.Char(string='Car Number', help='Vehicle chassis number')
