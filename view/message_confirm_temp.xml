@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <record id="oil_message_confirm_wo_temp_form" model="ir.ui.view">
+            <field name="name">oil_message_confirm_wo_temp_form</field>
+            <field name="model">oil.temp.message.confirm</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="الرجاء تحديد سيارة الخدمة / Confirm: Please select service car ">
+                            <field name="service_car_id" />
+
+                        </group>
+ 
+                        <footer>
+                            <button name="confirm" string="تاكيد / Confirm" type="object" class="oe_highlight"/>
+                            <button  special="cancel" class="btn-secondary" string="cancel/ خروج"/>
+
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="oil_message_confirm_wo_temp_action" model="ir.actions.act_window">
+            <field name="name">Work order confirm</field>
+            <field name="res_model">oil.temp.message.confirm</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="oil_message_confirm_wo_temp_form" />
+             <field name="target">new</field>
+        </record>
+
+ 
+ 
+    </data>
+</odoo>
