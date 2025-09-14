@@ -14,7 +14,13 @@ class packages(models.Model):
                                         string='Package Type',  default='primary',  tracking=True,)    
     active = fields.Boolean(string='Active', default=True)
     package_price_line_ids = fields.One2many('oil.package.price.line','header_id',ondelete="cascade",copy=False)    
-    package_services_line_ids = fields.One2many('oil.package.services.line','header_id',ondelete="cascade",copy=False)    
+    package_services_line_ids = fields.One2many('oil.package.services.line','header_id',ondelete="cascade",copy=False)
+
+    @api.constrains('service_type_id', 'oil_brand_id')
+    def _check_oil_brand_required(self):
+        for rec in self:
+            if rec.service_type_id and rec.service_type_id.is_oil_type and not rec.oil_brand_id:
+                raise ValidationError(_("You must select at least one Oil Brand when the service type is oil"))
 
 class package_price_line(models.Model):
     _name = 'oil.package.price.line'
