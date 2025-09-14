@@ -10,7 +10,7 @@
     </record>
 
     <!-- Menu item -->
-    <menuitem id="menu_work_order_temp" name="Temporary Orders" parent="menu_operation" 
+    <menuitem id="menu_work_order_temp" name="Temporary Orders" parent="yousentech_oil_workshop.menu_operation" 
                 groups="yousentech_oil_workshop.group_allow_access_external_requests"
 
     action="action_work_order_temp" sequence="10"/>
