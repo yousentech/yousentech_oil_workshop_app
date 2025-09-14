@@ -96,7 +96,33 @@ class WorkOrderTemp(models.Model):
                 rec.picking_type_id = False
 
 
-    
+    @api.onchange('car_letters', 'car_number')
+    def _onchange_car_details(self):
+        for record in self:
+            if record.car_letters and record.car_number:
+                car_data = self.env['oil.car.data'].search(
+                    [('car_letters', '=', record.car_letters.upper()), ('car_number', '=', record.car_number),], limit=1)
+                if car_data:
+                    record.partner_id = car_data.partner_id.id,
+                    record.mobile_number = car_data.mobile_number
+                    record.car_type_id = car_data.car_type_id.id
+                    record.vin_no = car_data.vin_no
+                    record.car_letters = record.car_letters.upper()
+                    record.car_number = record.car_number
+                else:
+                    raise ValidationError(
+                        _("The current number and letter combination you entered does not exist"))
+
+    @api.constrains('car_letters', 'car_number')
+    def _check_exist_letters_car_number(self):
+        for record in self:
+            if record.car_letters and record.car_number:
+                car_data = self.env['oil.car.data'].search(
+                    [('car_letters', '=', record.car_letters), ('car_number', '=', record.car_number),], limit=1)
+                if not car_data:
+                    raise ValidationError(
+                        _("The current number and letter combination you entered does not exist"))
+
     def _validate_entries(self):
         for rec in self:
             rec._default_picking_type_id()
