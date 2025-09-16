@@ -4,8 +4,6 @@
         <field name="name">Temporary Work Orders</field>
         <field name="res_model">oil.work.order.app</field>
         <field name="view_mode">kanban,tree,form</field>
-         
-       
         <field name="help" type="html">
             <p>No temporary work orders found. Click "Create" to add one.</p>
         </field>
@@ -84,7 +82,7 @@
                             
                             </group>
                         </page>
-                        <page invisible="state != 'services'"  string="Services">
+                        <page invisible="state != 'services'" string="Services">
                           
                             <group>
                                 <group>
