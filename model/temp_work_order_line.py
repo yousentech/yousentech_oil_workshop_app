@@ -1,5 +1,5 @@
 from odoo import models, api, fields, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 
 
 class work_order_line(models.Model):

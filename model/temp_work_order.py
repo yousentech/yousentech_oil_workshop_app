@@ -1,6 +1,6 @@
 from odoo import models, api, fields, _
 from odoo.exceptions import UserError
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 from collections import defaultdict
 import re
 
