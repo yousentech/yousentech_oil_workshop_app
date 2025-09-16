@@ -157,3 +157,6 @@ class work_order_line(models.Model):
             #                 and )
              
             return service_detail
+
+    def open_package_lines(self):
+        return True

@@ -218,5 +218,4 @@ class WorkOrderTemp(models.Model):
         if len(cleaned_letters) > max_letters:
             raise ValidationError(f"الحد الأقصى لعدد الأحرف هو {max_letters}")
 
-    def open_package_lines(self):
-        return True
+    
