@@ -62,6 +62,15 @@ class WorkOrderTemp(models.Model):
         copy=False,
         
     )
+
+    def open_services(self):
+        for rec in self:
+            rec.write({'state': 'services'})
+
+            
+    def back_to_main_info(self):
+        for rec in self:
+            rec.write({'state': 'draft'})
  
     @api.depends('create_date')
     def _compute_create_date_only(self):
