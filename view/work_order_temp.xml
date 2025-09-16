@@ -43,7 +43,8 @@
                     <button name="open_services" type="object" string="Services Entry" class="btn btn-secondary" invisible="state != 'draft'" />
                     <button name="back_to_main_info" type="object" string="Back To Main" class="btn btn-secondary" invisible="state != 'services'" />
 
-                    <button name="confirm_btn" type="object" string="Confirm Request" class="btn btn-secondary" invisible="state != 'draft'" />
+                    <button name="create_sale_order" type="object" string="Create Invoice" class="btn btn-secondary" invisible="state != 'draft'" />
+                    <button name="select_car_service" type="object" string="Select Car Service" class="btn btn-secondary" invisible="state != 'draft'" />
                     <!-- <button name="action_convert_to_work_order" type="object" string="Convert to Work Order" class="btn btn-primary" invisible="state != 'confirm'"/> -->
                     <field name="state" widget="statusbar"></field>
 
@@ -54,13 +55,15 @@
                         <page invisible="state != 'draft'" string="Main Information">
                             <group>
                                 <group>
-                                    <field name="id" readonly="1"/>
+                                    <field name="order_seq" readonly="1"/>
                                     <field name="created_order_date" readonly="1"/>
                                     <field name="partner_id"/>
                                     <field name="mobile_number"/>
                                     <field name="company_id" />
                                     <field name="car_notes"/>
-                               
+                                   <field name="salesman_id"   domain="salesman_domain"  readonly=" not salesman_enable" 
+                                                 options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create': True}"/>
+                                 
 
 
                                 </group>

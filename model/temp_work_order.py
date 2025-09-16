@@ -9,6 +9,7 @@ class WorkOrderTemp(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin', 'product.catalog.mixin']
     _rec_name = "partner_id"
 
+    order_seq = fields.Integer(string="Sequences", required=True)
     state = fields.Selection(selection=[('draft', 'Customer Info'), ('services', 'Services'), ('confirm', 'confirmed'), ('cancel_confirm', 'Cancel Confirm'), ('cancel_request', 'Cancel Request'), ('in_service', 'Completed')], string='Status', default='draft', tracking=True)
     oil_brand_id = fields.Many2one('oil.brands', string="Oil Brand",)
    
@@ -44,7 +45,15 @@ class WorkOrderTemp(models.Model):
     car_notes = fields.Char(string='Notes')
     lines_total_price = fields.Float(string='Total Price', compute='_compute_lines_total_price', store=True)
     created_order_date = fields.Date(string="Order Create Date", compute='_compute_create_date_only')
-    
+    sale_order_id = fields.Many2one('sale.order',copy=False)
+    account_move_id = fields.Many2one('account.move',copy=False)
+    salesman_id = fields.Many2one(
+        "salesman", string="Salesman", default=lambda self: self._default_salesman())
+    salesman_enable = fields.Boolean(
+        compute="_compute_salesman_readonly",
+        default=lambda self: self.default_salesman_readonly(),
+    )
+    salesman_domain = fields.Char("salesman_domain", compute="_compute_salesman_domain")
     employee_user_id = fields.Many2one(
         "res.users",
         string="Employee User name",
@@ -80,13 +89,105 @@ class WorkOrderTemp(models.Model):
         for rec in self:
             rec.lines_total_price = sum(rec.order_line.mapped('price_total'))
 
-    def confirm_btn(self):
+    def select_car_service(self):
         for rec in self:
-            action = self.env.ref('yousentech_oil_workshop.oil_message_confirm_wo_temp_action')
+            action = self.env.ref('yousentech_oil_workshop_app.oil_message_confirm_wo_temp_action')
             result = action.read()[0]
             result.pop('id', None)
          
             return result
+ 
+    
+    def create_sale_order(self):
+        self.ensure_one()
+        self._validate_entries()
+
+
+        if self.sale_order_id:
+            if not self.sale_order_id.invoice_ids:
+                self.sale_order_id._create_invoices()
+
+
+            raise UserError(
+                _("the Order has Invoice. You can not create again"))
+     
+        if not self.picking_type_id:
+              raise UserError(
+                _("Please select the warehouse from which the items will be issued"))
+
+        if not self.order_line:
+            raise UserError(
+                _("Please add at least one order line before creating a sale order"))
+       
+        order_vals = {}
+        order_vals = {
+                'partner_id': self.partner_id.id,
+                'date_order': self.order_date,
+                'origin': f"Car: {self.car_type_id.name}",
+                'work_order_app_id': self.id,
+                'company_id': self.company_id.id,
+                'user_id': self.user_id.id,
+                
+            }
+
+
+        # Create the sale order
+        sale_order = self.env['sale.order'].with_context(
+            default_company_id=self.company_id.id).create(order_vals)
+       
+
+        for line in self.order_line:
+            if not line.product_id:
+                raise UserError(_("Product is required for all order lines"))
+
+            # Get fiscal position for taxes
+            fiscal_position = sale_order.fiscal_position_id
+
+            line_vals = {
+                'order_id': sale_order.id,
+                'product_id': line.service_product_id.id,
+                'name':  line.description or '',
+                'product_uom_qty': line.quantity,
+                'product_uom': line.product_id.uom_id.id,
+                'price_unit': line.unit_price,
+                'tax_id': [(6, 0, fiscal_position.map_tax(line.tax_id).ids)],
+                'company_id': sale_order.company_id.id,
+                'sequence': 10,
+                'display_type': False,
+            }
+
+            try:
+               
+                self.env['sale.order.line'].create(line_vals)
+               
+            except Exception as e:
+                raise UserError(_("Failed to create order line: %s") % str(e))
+
+        try:
+            # self.state = 'in_service'
+            # self.external_request_id.write({'state': 'in_service'})
+            self.sale_order_id = sale_order.id
+            is_exsiting_field_picking_type_id = self.env['ir.model.fields'].sudo().search([('name', '=', 'picking_type_id'), ('model', '=', 'sale.order')])
+            if is_exsiting_field_picking_type_id :
+                sale_order.picking_type_id = self.picking_type_id.id
+            
+            sale_order.action_confirm()
+            
+
+        except Exception as e:
+            raise UserError(_("Order confirmation failed: %s") % str(e))
+
+    def unlink(self):
+        for vehicle in self:
+            # Check if vehicle has linked sales orders
+            if vehicle.sale_order_id  or vehicle.account_move_id or not self.user_has_groups('yousentech_oil_workshop.group_delete_request'):
+                raise UserError(_(
+                    "Cannot delete order with State:%s ,For:%s because it has linked sales orders. or you have not permission"
+                    "Please archived instead.") % (vehicle.state, vehicle.car_type_id.name))
+            return super(work_order, self).unlink()
+
+
+
        
     def _default_picking_type_id(self):
         for rec in self:
@@ -173,6 +274,14 @@ class WorkOrderTemp(models.Model):
          
             if not rec.employee_id:
                  raise UserError(_("Technical name is required"))
+                  
+            if self.company_id.salesman_required:
+                if self.company_id.salesman_required_selection == "new_draft_records":
+                    if not self.salesman_id.id:
+                        raise ValidationError(_("The Salesman Field is Required"))
+
+  
+
 
     @api.constrains('current_distance')
     def _validate_current_distance(self):
@@ -218,4 +327,76 @@ class WorkOrderTemp(models.Model):
         if len(cleaned_letters) > max_letters:
             raise ValidationError(f"الحد الأقصى لعدد الأحرف هو {max_letters}")
 
-    
+    def default_salesman_readonly(self):
+        return self.user_has_groups(
+            "yousentech_invoicing_saleman.allow_modify_salesman"
+        )
+ 
+    def _default_salesman(self):
+        salesman = self.env["salesman"].search(
+            [("sale_user", "=", self.env.user.id)], limit=1
+        )
+        if salesman:
+            return salesman
+        else:
+            return False
+ 
+    @api.depends("company_id")
+    def _compute_salesman_domain(self):
+        for rec in self:
+            company_salesman = self.env["salesman.assignments"].search(
+                [("company_id", "=", rec.company_id.id)]
+            )
+            if company_salesman:
+                rec.salesman_domain = [("id", "in", company_salesman.salesman_id.ids)]
+
+            
+            else:
+                rec.salesman_domain = []
+
+        @api.onchange('company_id')
+    def _get_new_order_seq(self):
+        sql_query = ""
+        if self.company_id:
+            sql_query = "select max(COALESCE(order_seq,0)) as seq from oil_work_order where company_id='%s'" % self.company_id.id
+            self.env.cr.execute(sql_query)
+            seq = self.env.cr.fetchone()
+            x = seq[0]
+            if x:
+                x = x + 1
+                self.order_seq = x
+            else:
+                x = 1
+                self.order_seq = x
+        else:
+            self.order_seq = 0
+
+    @api.model
+    def create(self, vals):
+       
+        check_seq = self.env['oil.work.order.app'].search([('order_seq','=',vals['order_seq'])])
+        if check_seq:
+            sql_query = "select max(COALESCE(order_seq,0)) as seq from oil_work_order_app where company_id='%s'" % self.company_id.id
+            self.env.cr.execute(sql_query)
+            seq = self.env.cr.fetchone()
+            x = seq[0]
+            if x:
+                x = x + 1
+               
+                vals['order_seq'] = x
+              
+        
+            else:
+                x = 1
+                vals['order_seq'] = x
+       
+        res = super(work_order, self).create(vals)
+
+        if res.company_id.salesman_required:
+            if not res.salesman_id.id:
+                raise ValidationError(_("The Salesman Field is Required"))
+
+
+        return res
+
+

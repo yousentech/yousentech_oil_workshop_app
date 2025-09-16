@@ -136,8 +136,8 @@ class work_order_line(models.Model):
             service_detail = False
             # if service_id.id and oil_distance_type_id and car_size_id and oil_brand_id:
             package_detail = service_id.service_price_line_ids.filtered(lambda x: x.oil_distance_type_id.id == oil_distance_type_id
-                                                                        and x.car_size_id.id == car_size_id
-                                                                        and x.oil_brand_id.id == oil_brand_id
+                                                                            and x.car_size_id.id == car_size_id
+                                                                            and x.oil_brand_id.id == oil_brand_id
                                                                         )
                                                 
             # elif package_id.id and oil_distance_type_id and car_size_id and oil_brand_id == False:
