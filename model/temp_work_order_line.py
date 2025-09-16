@@ -95,25 +95,24 @@ class work_order_line(models.Model):
     def get_package_price(self,package_id,oil_distance_type_id,car_size_id):
         for rec in self:
             package_detail = False
-            if package_id.id and oil_distance_type_id and car_size_id:
-                package_detail = package_id.package_price_line_ids.filtered
-                            (lambda x: x.oil_distance_type_id.id == oil_distance_type_id
-                                    and x.car_size_id.id == car_size_id)
+            # if package_id.id and oil_distance_type_id and car_size_id:
+            package_detail = package_id.package_price_line_ids.filtered(lambda x: x.oil_distance_type_id.id == oil_distance_type_id
+                                                                        and x.car_size_id.id == car_size_id)
         
-            elif package_id.id and oil_distance_type_id and car_size_id == False:
-                package_detail = package_id.package_price_line_ids.filtered
-                    (lambda x: x.oil_distance_type_id.id == oil_distance_type_id
-                            and x.car_size_id.id == False)
+            # elif package_id.id and oil_distance_type_id and car_size_id == False:
+            #     package_detail = package_id.package_price_line_ids.filtered
+            #         (lambda x: x.oil_distance_type_id.id == oil_distance_type_id
+            #                 and x.car_size_id.id == False)
             
-            elif package_id.id and car_size_id and oil_distance_type_id == False:
-                package_detail = package_id.package_price_line_ids.filtered
-                    (lambda x: x.oil_distance_type_id.id == False
-                            and x.car_size_id.id == car_size_id)
-            elif package_id.id:
-                package_detail = package_id.package_price_line_ids.filtered
-                    (lambda x: x.oil_distance_type_id.id == False
-                            and x.car_size_id.id == False
-                            and )
+            # elif package_id.id and car_size_id and oil_distance_type_id == False:
+            #     package_detail = package_id.package_price_line_ids.filtered
+            #         (lambda x: x.oil_distance_type_id.id == False
+            #                 and x.car_size_id.id == car_size_id)
+            # elif package_id.id:
+            #     package_detail = package_id.package_price_line_ids.filtered
+            #         (lambda x: x.oil_distance_type_id.id == False
+            #                 and x.car_size_id.id == False
+            #                 and )
              
             return package_detail
 
@@ -136,12 +135,11 @@ class work_order_line(models.Model):
         for rec in self:
             service_detail = False
             # if service_id.id and oil_distance_type_id and car_size_id and oil_brand_id:
-            package_detail = service_id.service_price_line_ids.filtered
-                        (lambda x: x.oil_distance_type_id.id == oil_distance_type_id
-                                and x.car_size_id.id == car_size_id
-                                and x.oil_brand_id.id == oil_brand_id
-                                )
-        
+            package_detail = service_id.service_price_line_ids.filtered(lambda x: x.oil_distance_type_id.id == oil_distance_type_id
+                                                                        and x.car_size_id.id == car_size_id
+                                                                        and x.oil_brand_id.id == oil_brand_id
+                                                                        )
+                                                
             # elif package_id.id and oil_distance_type_id and car_size_id and oil_brand_id == False:
             #     package_detail = package_id.package_price_line_ids.filtered
             #         (lambda x: x.oil_distance_type_id.id == oil_distance_type_id
