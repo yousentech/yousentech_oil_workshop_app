@@ -48,7 +48,7 @@
                 <sheet>
                  
                     <notebook>
-                        <page string="Services">
+                        <page string="Main Information">
                             <group>
                                 <group>
                                     <field name="id" readonly="1"/>
@@ -80,38 +80,37 @@
                             </group>
                         </page>
                         <page string="Services">
+                          
+                            <group>
+                                <group>
+                                    <field name="oil_distance_type_id"/>
+                                    <field name="oil_brand_id"/>
+                                    <field name="car_size_id"/>
+                                
+                                </group>
+                                <group>
+                                    <field name="package_id"/>
+                                    <field name="service_type_id"/>
+                                </group>
+                                
+                            </group>
                             <notebook>
-                                 <page string="Services">
-                                    <group>
-                                        <group>
-                                            <field name="oil_distance_type_id"/>
-                                            <field name="oil_brand_id"/>
-                                            <field name="car_size_id"/>
-                                        
-                                        </group>
-                                        <group>
-                                            <field name="package_id"/>
-                                            <field name="service_type_id"/>
-                                        </group>
-                                        
-                                    </group>
-                                    <notebook>
-                                        <page string="Services">
-                                            <field name="order_line">
-                                                <tree editable="bottom">
-                                                    <field name="service_id"/>
-                                                    <field name="description"/>
+                                <page string="Services">
+                                    <field name="order_line">
+                                        <tree editable="bottom">
+                                            <field name="service_id"/>
+                                            <field name="description"/>
 
-                                                    <field name="product_id"/>
-                                                    <field name="quantity" sum="Quantity"/>
-                                                    <field name="unit_price"/>
-                                                    <field name="tax_id"/>
+                                            <field name="product_id"/>
+                                            <field name="quantity" sum="Quantity"/>
+                                            <field name="unit_price"/>
+                                            <field name="tax_id"/>
 
-                                                    <field name="price_subtotal"/>
-                                                    <field name="price_tax"/>
-                                                    <field name="price_total" sum="Price Total"/>
-                                                </tree>
-                                            </field>
+                                            <field name="price_subtotal"/>
+                                            <field name="price_tax"/>
+                                            <field name="price_total" sum="Price Total"/>
+                                        </tree>
+                                    </field>
                                 </page>
                                 <page string="Other Information">
                                     <group>
