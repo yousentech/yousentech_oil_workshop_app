@@ -91,26 +91,30 @@
                                     <field name="car_size_id"/>
                                 
                                 </group>
-                                <group>
-                                    <field name="package_id"/>
-                                    <field name="service_type_id"/>
-                                </group>
-                                
                             </group>
                             <notebook>
                                 <page string="Services">
                                     <field name="order_line">
                                         <tree editable="bottom">
-                                            <field name="service_id"/>
-                                            <field name="description"/>
+                                            <button name="open_package_lines"
+                                                type="object"
+                                                string="Package Details"
+                                                class="p-0 o_no_button text-danger"
+                                                icon="fa-trash"
+                                                invisible="state not in ['draft'] or package_id == False "
+                                                colspan="2" />
 
+                                            <field name="service_id"  />
+                                            <field name="package_id"  />
+                                            <field name="service_product_id"/>
+                                            <field name="description"/>
                                             <field name="product_id"/>
                                             <field name="quantity" sum="Quantity"/>
                                             <field name="unit_price"/>
                                             <field name="tax_id"/>
 
-                                            <field name="price_subtotal"/>
-                                            <field name="price_tax"/>
+                                            <field name="price_subtotal" sum="price_total before Tax"/>
+                                            <field name="price_tax" sum="Tax"/>
                                             <field name="price_total" sum="Price Total"/>
                                         </tree>
                                     </field>

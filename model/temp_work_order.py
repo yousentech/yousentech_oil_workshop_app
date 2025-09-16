@@ -10,8 +10,6 @@ class WorkOrderTemp(models.Model):
     _rec_name = "partner_id"
 
     state = fields.Selection(selection=[('draft', 'Customer Info'), ('services', 'Services'), ('confirm', 'confirmed'), ('cancel_confirm', 'Cancel Confirm'), ('cancel_request', 'Cancel Request'), ('in_service', 'Completed')], string='Status', default='draft', tracking=True)
-    package_id = fields.Many2one('oil.package.app',string="Package")
-    service_type_id = fields.Many2one('oil.service.type',string="Service type")
     oil_brand_id = fields.Many2one('oil.brands', string="Oil Brand",)
    
     oil_distance_type_id = fields.Many2one('oil.vehicle.distance',string="Vehicle distance Type")
@@ -220,4 +218,5 @@ class WorkOrderTemp(models.Model):
         if len(cleaned_letters) > max_letters:
             raise ValidationError(f"الحد الأقصى لعدد الأحرف هو {max_letters}")
 
-   
+    def open_package_lines(self):
+        return True

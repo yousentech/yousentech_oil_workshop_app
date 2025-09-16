@@ -5,9 +5,10 @@ from odoo.exceptions import ValidationError
 class work_order_line(models.Model):
     _name = 'oil.work.order.app.line'
 
-
+    service_product_id = fields.Many2one('product.product', string='Product', domain="[('detailed_type', 'in', ['service'])]",required=True)
     service_id = fields.Many2one('oil.services',string="Service", required=True)
-
+    package_id = fields.Many2one('oil.package.app',string="Package")
+    service_type_id = fields.Many2one('oil.service.type',string="Service type")
     product_id = fields.Many2one('product.product', string='Product', domain="[('detailed_type', 'in', ['service','product'])]", help="Select a service-type product", required=True)
     description = fields.Text(string='Description', help='Detailed description of the service')
     quantity = fields.Float(string='Quantity', default=1.0, digits='Product Unit of Measure', help='Quantity of service units')
@@ -17,6 +18,7 @@ class work_order_line(models.Model):
     price_tax = fields.Float(string='Tax Amount', compute='_compute_amount', digits='Account', store=True, help='Total tax amount')
     price_total = fields.Float(string='Total', compute='_compute_amount', digits='Account', store=True, help='Total with taxes')
     order_id = fields.Many2one("oil.work.order.app", string="Work Order",ondelete="cascade",copy=False)
+    price_readonly = fields.Boolean(string="Price readony", default=False,copy=False)
 
     @api.depends('quantity', 'unit_price', 'tax_id')
     def _compute_amount(self):
@@ -74,4 +76,86 @@ class work_order_line(models.Model):
                     _("Multiple engine oil types detected!\n"
                     "You can only have one type of engine oil per order."))
             
-           
+    @api.onchange('package_id')
+    def get_package_detail(self)
+        for rec in self:
+            if rec.package_id:
+                rec.description= rec.package_id.description
+                rec.service_product_id= rec.package_id.package_product_id.id
+                rec.quantity= 1
+                package_line_detail = rec.get_package_price(rec.package_id,rec.header_id.oil_distance_type_id.id,rec.header_id.car_size_id.id)
+                if not package_line_detail:
+                       raise UserError(_("Package detail not completed"))
+                else:
+                    rec.unit_price = package_line_detail.package_price
+                    rec.tax_id = package_line_detail.tax_id
+                    rec.price_readonly = package_line_detail.price_readonly
+                    
+                
+    def get_package_price(self,package_id,oil_distance_type_id,car_size_id)
+        for rec in self:
+            package_detail = False
+            if package_id.id and oil_distance_type_id and car_size_id:
+                package_detail = package_id.package_price_line_ids.filtered
+                            (lambda x: x.oil_distance_type_id.id == oil_distance_type_id
+                                    and x.car_size_id.id == car_size_id)
+        
+            elif package_id.id and oil_distance_type_id and car_size_id == False:
+                package_detail = package_id.package_price_line_ids.filtered
+                    (lambda x: x.oil_distance_type_id.id == oil_distance_type_id
+                            and x.car_size_id.id == False)
+            
+            elif package_id.id and car_size_id and oil_distance_type_id == False:
+                package_detail = package_id.package_price_line_ids.filtered
+                    (lambda x: x.oil_distance_type_id.id == False
+                            and x.car_size_id.id == car_size_id)
+            elif package_id.id:
+                package_detail = package_id.package_price_line_ids.filtered
+                    (lambda x: x.oil_distance_type_id.id == False
+                            and x.car_size_id.id == False
+                            and )
+             
+            return package_detail
+
+    @api.onchange('service_id')
+    def get_service_detail(self)
+        for rec in self:
+            if rec.service_id:
+                rec.description= rec.service_id.name
+                rec.service_product_id= rec.service_id.service_product_id.id
+                rec.quantity= 1
+                service_line_detail = rec.get_service_price(rec.service_id,rec.header_id.oil_distance_type_id.id,rec.header_id.car_size_id.id,rec.header_id.oil_brand_id.id)
+                if not service_line_detail:
+                       raise UserError(_("Service detail not completed"))
+                else:
+                    rec.unit_price = service_line_detail.service_price
+                    rec.tax_id = service_line_detail.tax_id
+                    rec.price_readonly = service_line_detail.price_readonly
+
+    def get_service_price(self,service_id,oil_distance_type_id,car_size_id,oil_brand_id)
+        for rec in self:
+            service_detail = False
+            # if service_id.id and oil_distance_type_id and car_size_id and oil_brand_id:
+            package_detail = service_id.service_price_line_ids.filtered
+                        (lambda x: x.oil_distance_type_id.id == oil_distance_type_id
+                                and x.car_size_id.id == car_size_id
+                                and x.oil_brand_id.id == oil_brand_id
+                                )
+        
+            # elif package_id.id and oil_distance_type_id and car_size_id and oil_brand_id == False:
+            #     package_detail = package_id.package_price_line_ids.filtered
+            #         (lambda x: x.oil_distance_type_id.id == oil_distance_type_id
+            #                    x.car_size_id.id == car_size_id
+            #                     and x.oil_brand_id.id == False)
+            
+            # elif package_id.id and car_size_id and oil_distance_type_id == False:
+            #     package_detail = package_id.package_price_line_ids.filtered
+            #         (lambda x: x.oil_distance_type_id.id == False
+            #                 and x.car_size_id.id == car_size_id)
+            # elif package_id.id:
+            #     package_detail = package_id.package_price_line_ids.filtered
+            #         (lambda x: x.oil_distance_type_id.id == False
+            #                 and x.car_size_id.id == False
+            #                 and )
+             
+            return service_detail

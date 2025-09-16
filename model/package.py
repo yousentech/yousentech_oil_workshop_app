@@ -6,6 +6,7 @@ class packages(models.Model):
     _description = 'Oil package App'
     
     name = fields.Char(string="package name", required=True,copy=False,index=True)
+    description = fields.Char(string="description", required=True,copy=False,index=True)
     service_type_id = fields.Many2one('oil.service.type',string="Service type", required=True)
     oil_brand_id = fields.Many2many('oil.brands', string="Oil Brand", required=False)
     package_product_id = fields.Many2one('product.product',string="Package product",domain=[('detailed_type','=','service')], required=True,copy=False)
