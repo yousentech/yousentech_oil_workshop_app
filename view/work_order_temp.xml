@@ -81,20 +81,20 @@
                         </page>
                         <page string="Services">
                             <notebook>
-                               <group>
-                                    <group>
-                                        <field name="oil_distance_type_id"/>
-                                        <field name="oil_brand_id"/>
-                                        <field name="car_size_id"/>
-                                     
-                                    </group>
-                                    <group>
-                                        <field name="package_id"/>
-                                        <field name="service_type_id"/>
-                                    </group>
-                                    
-                                 </group>
                                  <page string="Services">
+                                    <group>
+                                        <group>
+                                            <field name="oil_distance_type_id"/>
+                                            <field name="oil_brand_id"/>
+                                            <field name="car_size_id"/>
+                                        
+                                        </group>
+                                        <group>
+                                            <field name="package_id"/>
+                                            <field name="service_type_id"/>
+                                        </group>
+                                        
+                                    </group>
                                     <notebook>
                                         <page string="Services">
                                             <field name="order_line">
