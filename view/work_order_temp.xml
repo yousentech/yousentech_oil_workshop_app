@@ -40,10 +40,13 @@
         <field name="arch" type="xml">
             <form string="Temporary Work Order">
                 <header>
-                    <field name="state" widget="statusbar"></field>
+                    <button name="open_services" type="object" string="Services Entry" class="btn btn-secondary" invisible="state != 'draft'" />
+                    <button name="back_to_main_info" type="object" string="Back To Main" class="btn btn-secondary" invisible="state != 'services'" />
 
                     <button name="confirm_btn" type="object" string="Confirm Request" class="btn btn-secondary" invisible="state != 'draft'" />
                     <!-- <button name="action_convert_to_work_order" type="object" string="Convert to Work Order" class="btn btn-primary" invisible="state != 'confirm'"/> -->
+                    <field name="state" widget="statusbar"></field>
+
                 </header>
                 <sheet>
                  
