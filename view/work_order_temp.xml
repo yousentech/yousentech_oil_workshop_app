@@ -51,7 +51,7 @@
                 <sheet>
                  
                     <notebook>
-                        <page string="Main Information">
+                        <page invisible="state != 'draft'" string="Main Information">
                             <group>
                                 <group>
                                     <field name="id" readonly="1"/>
@@ -82,7 +82,7 @@
                             
                             </group>
                         </page>
-                        <page string="Services">
+                        <page invisible="state != 'services'"  string="Services">
                           
                             <group>
                                 <group>
