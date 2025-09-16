@@ -83,7 +83,7 @@ class work_order_line(models.Model):
                 rec.description= rec.package_id.description
                 rec.service_product_id= rec.package_id.package_product_id.id
                 rec.quantity= 1
-                package_line_detail = rec.get_package_price(rec.package_id,rec.header_id.oil_distance_type_id.id,rec.header_id.car_size_id.id)
+                package_line_detail = rec.get_package_price(rec.package_id,rec.order_id.oil_distance_type_id.id,rec.order_id.car_size_id.id)
                 if not package_line_detail:
                        raise UserError(_("Package detail not completed"))
                 else:
@@ -123,7 +123,7 @@ class work_order_line(models.Model):
                 rec.description= rec.service_id.name
                 rec.service_product_id= rec.service_id.service_product_id.id
                 rec.quantity= 1
-                service_line_detail = rec.get_service_price(rec.service_id,rec.header_id.oil_distance_type_id.id,rec.header_id.car_size_id.id,rec.header_id.oil_brand_id.id)
+                service_line_detail = rec.get_service_price(rec.service_id,rec.order_id.oil_distance_type_id.id,rec.order_id.car_size_id.id,rec.order_id.oil_brand_id.id)
                 if not service_line_detail:
                        raise UserError(_("Service detail not completed"))
                 else:
