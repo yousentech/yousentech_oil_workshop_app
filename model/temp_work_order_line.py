@@ -77,7 +77,7 @@ class work_order_line(models.Model):
                     "You can only have one type of engine oil per order."))
             
     @api.onchange('package_id')
-    def get_package_detail(self)
+    def get_package_detail(self):
         for rec in self:
             if rec.package_id:
                 rec.description= rec.package_id.description
@@ -92,7 +92,7 @@ class work_order_line(models.Model):
                     rec.price_readonly = package_line_detail.price_readonly
                     
                 
-    def get_package_price(self,package_id,oil_distance_type_id,car_size_id)
+    def get_package_price(self,package_id,oil_distance_type_id,car_size_id):
         for rec in self:
             package_detail = False
             if package_id.id and oil_distance_type_id and car_size_id:
@@ -118,7 +118,7 @@ class work_order_line(models.Model):
             return package_detail
 
     @api.onchange('service_id')
-    def get_service_detail(self)
+    def get_service_detail(self):
         for rec in self:
             if rec.service_id:
                 rec.description= rec.service_id.name
@@ -132,7 +132,7 @@ class work_order_line(models.Model):
                     rec.tax_id = service_line_detail.tax_id
                     rec.price_readonly = service_line_detail.price_readonly
 
-    def get_service_price(self,service_id,oil_distance_type_id,car_size_id,oil_brand_id)
+    def get_service_price(self,service_id,oil_distance_type_id,car_size_id,oil_brand_id):
         for rec in self:
             service_detail = False
             # if service_id.id and oil_distance_type_id and car_size_id and oil_brand_id:
