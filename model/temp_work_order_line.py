@@ -6,7 +6,7 @@ class work_order_line(models.Model):
     _name = 'oil.work.order.app.line'
 
     service_product_id = fields.Many2one('product.product', string='Product', domain="[('detailed_type', 'in', ['service'])]",required=True)
-    service_id = fields.Many2one('oil.services',string="Service", required=True)
+    service_id = fields.Many2one('oil.services',string="Service",)
     package_id = fields.Many2one('oil.package.app',string="Package")
     service_type_id = fields.Many2one('oil.service.type',string="Service type")
     product_id = fields.Many2one('product.product', string='Product', domain="[('detailed_type', 'in', ['service','product'])]", help="Select a service-type product", required=True)
