@@ -9,7 +9,7 @@ class WorkOrderTemp(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin', 'product.catalog.mixin']
     _rec_name = "partner_id"
 
-    state = fields.Selection(selection=[('draft', 'Draft'), ('services', 'services'), ('confirm', 'confirmed'), ('cancel_confirm', 'Cancel Confirm'), ('cancel_request', 'Cancel Request'), ('in_service', 'Completed')], string='Status', default='draft', tracking=True)
+    state = fields.Selection(selection=[('draft', 'Customer Info'), ('services', 'Services'), ('confirm', 'confirmed'), ('cancel_confirm', 'Cancel Confirm'), ('cancel_request', 'Cancel Request'), ('in_service', 'Completed')], string='Status', default='draft', tracking=True)
     package_id = fields.Many2one('oil.package.app',string="Package")
     service_type_id = fields.Many2one('oil.service.type',string="Service type")
     oil_brand_id = fields.Many2one('oil.brands', string="Oil Brand",)
