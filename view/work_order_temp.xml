@@ -46,67 +46,86 @@
                     <!-- <button name="action_convert_to_work_order" type="object" string="Convert to Work Order" class="btn btn-primary" invisible="state != 'confirm'"/> -->
                 </header>
                 <sheet>
-                    <group>
-                        <group>
-                            <field name="id" readonly="1"/>
-                            <field name="created_order_date" readonly="1"/>
-                            <field name="partner_id"/>
-                            <field name="mobile_number"/>
-                            <field name="company_id" />
-                            <field name="car_notes"/>
-                            <field name="car_size_id"/>
-                            <field name="oil_distance_type_id"/>
-                            <field name="oil_brand_id"/>
-                            <field name="package_id"/>
-
-
-                        </group>
-
-                        <group>
-                            <field name="order_date"/>
-                              <field name="car_number" widget="convertNumberFeild"  />
-                            <field name="car_letters" widget="convertLettersFeild"  />
-                                  
-                            <field name="car_type_id"/>
-                            <field name="car_model"/>
-                            <field name="car_version_id"/>
-                            <field name="vin_no"/>
-                            <field name="current_distance"/>
-                            <field name="service_type_id"/>
-                            
-                        </group>
-                      
-                      
-                    </group>
+                 
                     <notebook>
                         <page string="Services">
-                            <field name="order_line">
-                                <tree editable="bottom">
-                                    <field name="service_id"/>
-                                    <field name="description"/>
-
-                                    <field name="product_id"/>
-                                    <field name="quantity" sum="Quantity"/>
-                                    <field name="unit_price"/>
-                                    <field name="tax_id"/>
-
-                                    <field name="price_subtotal"/>
-                                    <field name="price_tax"/>
-                                    <field name="price_total" sum="Price Total"/>
-                                </tree>
-                            </field>
-                        </page>
-                         <page string="Other Information">
                             <group>
-                               <field name="picking_type_id"/>
-                                <field name="company_id" readonly="1" force_save="1"/>
-                                <field name="employee_id"   readonly="1" force_save="1"/>
-                            </group>
-                            <group>
+                                <group>
+                                    <field name="id" readonly="1"/>
+                                    <field name="created_order_date" readonly="1"/>
+                                    <field name="partner_id"/>
+                                    <field name="mobile_number"/>
+                                    <field name="company_id" />
+                                    <field name="car_notes"/>
+                               
+
+
+                                </group>
+
+                                <group>
+                                    <field name="order_date"/>
+                                    <field name="car_number" widget="convertNumberFeild"  />
+                                    <field name="car_letters" widget="convertLettersFeild"  />
+                                        
+                                    <field name="car_type_id"/>
+                                    <field name="car_model"/>
+                                    <field name="car_version_id"/>
+                                    <field name="vin_no"/>
+                                    <field name="current_distance"/>
                                   
-                                <field name="latitude" readonly="1" force_save="1"/>
-                                <field name="longitude"   readonly="1" force_save="1"/>
+                                    
+                                </group>
+                            
+                            
                             </group>
+                        </page>
+                        <page string="Services">
+                            <notebook>
+                               <group>
+                                    <group>
+                                        <field name="oil_distance_type_id"/>
+                                        <field name="oil_brand_id"/>
+                                        <field name="car_size_id"/>
+                                     
+                                    </group>
+                                    <group>
+                                        <field name="package_id"/>
+                                        <field name="service_type_id"/>
+                                    </group>
+                                    
+                                 </group>
+                                 <page string="Services">
+                                    <notebook>
+                                        <page string="Services">
+                                            <field name="order_line">
+                                                <tree editable="bottom">
+                                                    <field name="service_id"/>
+                                                    <field name="description"/>
+
+                                                    <field name="product_id"/>
+                                                    <field name="quantity" sum="Quantity"/>
+                                                    <field name="unit_price"/>
+                                                    <field name="tax_id"/>
+
+                                                    <field name="price_subtotal"/>
+                                                    <field name="price_tax"/>
+                                                    <field name="price_total" sum="Price Total"/>
+                                                </tree>
+                                            </field>
+                                </page>
+                                <page string="Other Information">
+                                    <group>
+                                    <field name="picking_type_id"/>
+                                        <field name="company_id" readonly="1" force_save="1"/>
+                                        <field name="employee_id"   readonly="1" force_save="1"/>
+                                    </group>
+                                    <group>
+                                        
+                                        <field name="latitude" readonly="1" force_save="1"/>
+                                        <field name="longitude"   readonly="1" force_save="1"/>
+                                    </group>
+                                </page>
+                            </notebook>
                         </page>
                     </notebook>
                 </sheet>
