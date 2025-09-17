@@ -184,7 +184,7 @@ class WorkOrderTemp(models.Model):
                 raise UserError(_(
                     "Cannot delete order with State:%s ,For:%s because it has linked sales orders. or you have not permission"
                     "Please archived instead.") % (vehicle.state, vehicle.car_type_id.name))
-            return super(work_order, self).unlink()
+            return super(WorkOrderTemp, self).unlink()
 
 
 
@@ -358,7 +358,7 @@ class WorkOrderTemp(models.Model):
     def _get_new_order_seq(self):
         sql_query = ""
         if self.company_id:
-            sql_query = "select max(COALESCE(order_seq,0)) as seq from oil_work_order where company_id='%s'" % self.company_id.id
+            sql_query = "select max(COALESCE(order_seq,0)) as seq from oil_work_order_app where company_id='%s'" % self.company_id.id
             self.env.cr.execute(sql_query)
             seq = self.env.cr.fetchone()
             x = seq[0]
@@ -390,7 +390,7 @@ class WorkOrderTemp(models.Model):
                 x = 1
                 vals['order_seq'] = x
        
-        res = super(work_order, self).create(vals)
+        res = super(WorkOrderTemp, self).create(vals)
 
         if res.company_id.salesman_required:
             if not res.salesman_id.id:
