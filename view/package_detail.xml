@@ -18,7 +18,8 @@
                             <field name="pckage_line_ids" create="0" delete="0" >
                                 <tree editable="bottom">
                                     <field name="service_id"  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create': True}" />
-                                    <field name="product_id"  required="service_id.storable_product_required == True"  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create': True}" />
+                                    <field name="product_id"    options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create': True}" />
+                                    <!-- <field name="product_id"  required="service_id.storable_product_required == True"  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create': True}" /> -->
                                     
                                 </tree>
 
