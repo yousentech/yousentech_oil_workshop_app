@@ -23,6 +23,5 @@ class oil_temp_message_confirm(models.TransientModel):
             records.write({'supervisor_user_id': self.env.uid})
             records.write({'employee_id': self.service_car_id.user_id.employee_id.id})
             records.write({'state': 'tech_assign'})
-            records.action_convert_to_work_order()
-          
+           
     
