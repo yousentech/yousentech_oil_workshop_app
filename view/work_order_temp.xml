@@ -1,46 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-    <!-- Menu Root -->
-    <menuitem id="menu_work_order_root"
-              name="Work Orders"
-              sequence="10"/>
-
-    <!-- Sub Menu -->
-    <menuitem id="menu_work_order_app"
-              name="Orders"
-              parent="menu_work_order_root"
-              action="action_work_order_app"
-              sequence="20"/>
-
-    <!-- Action -->
-    <record id="action_work_order_app" model="ir.actions.act_window">
-        <field name="name">Work Orders</field>
+    <!-- Action for Work Order Temp -->
+    <record id="action_work_order_temp" model="ir.actions.act_window">
+        <field name="name">Temporary Work Orders</field>
         <field name="res_model">oil.work.order.app</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="help" type="html">
-            <p>No work orders found. Click "Create" to add one.</p>
+            <p>No temporary work orders found. Click "Create" to add one.</p>
         </field>
     </record>
 
-    <!-- Menu -->
-    <menuitem id="menu_work_order_root"
-              name="Work Orders"
-              sequence="10"/>
-    <menuitem id="menu_work_order_app"
-              name="Orders"
-              parent="menu_work_order_root"
-              action="action_work_order_app"
-              sequence="20"/>
+    <!-- Menu item -->
+    <menuitem id="menu_work_order_temp" name="Temporary Orders" parent="yousentech_oil_workshop.menu_operation" 
+                groups="yousentech_oil_workshop.group_allow_access_external_requests"
+
+    action="action_work_order_temp" sequence="10"/>
 
     <!-- Tree View -->
-    <record id="view_work_order_app_tree" model="ir.ui.view">
+    <record id="view_work_order_temp_tree" model="ir.ui.view">
         <field name="name">oil.work.order.app.tree</field>
         <field name="model">oil.work.order.app</field>
         <field name="arch" type="xml">
-            <tree string="Work Orders">
+            <tree string="Temporary Work Orders" >
                 <field name="order_seq"/>
                 <field name="partner_id"/>
+                <!-- <field name="partner_name"/>
+                <field name="mobile_number"/> -->
                 <field name="car_number"/>
                 <field name="car_type_id"/>
                 <field name="state"/>
@@ -50,122 +34,115 @@
     </record>
 
     <!-- Form View -->
-    <record id="view_work_order_app_form" model="ir.ui.view">
+    <record id="view_work_order_temp_form" model="ir.ui.view">
         <field name="name">oil.work.order.app.form</field>
         <field name="model">oil.work.order.app</field>
         <field name="arch" type="xml">
-            <form string="Work Order">
+            <form string="Temporary Work Order">
                 <header>
-                    <button name="select_car_service" type="object"
-                            string="Select Car Service"
-                            class="btn btn-secondary"
-                            invisible="state != 'send_request'"/>
-                    <button name="request_accept_btn" type="object"
-                            string="Accept the order"
-                            class="btn btn-secondary"
-                            invisible="state != 'tech_assign'"/>
-                    <button name="in_way_btn" type="object"
-                            string="In the way"
-                            class="btn btn-secondary"
-                            invisible="state != 'request_accept'"/>
-                    <button name="wo_started_btn" type="object"
-                            string="Execute started"
-                            class="btn btn-secondary"
-                            invisible="state != 'in_way'"/>
-                    <button name="open_services" type="object"
-                            string="Services Entry"
-                            class="btn btn-secondary"
-                            invisible="state != 'wo_started' or wo_state != 'main_info'"/>
-                    <button name="back_to_main_info" type="object"
-                            string="Back To Main"
-                            class="btn btn-secondary"
-                            invisible="wo_state != 'services'"/>
-                    <button name="preview_btn" type="object"
-                            string="Preview"
-                            class="btn btn-secondary"
-                            invisible="wo_state in ['main_info','preview']"/>
-                    <button name="comptete_btn" type="object"
-                            string="Complete"
-                            class="btn btn-secondary"
-                            invisible="state != 'wo_started'"/>
-                    <button name="create_sale_order" type="object"
-                            string="Create Invoice"
-                            class="btn btn-secondary"
-                            invisible="account_move_id != False or state != 'comptete'"/>
-                    <field name="state" widget="statusbar"/>
+                    <button name="select_car_service" type="object" string="Select Car Service" class="btn btn-secondary" invisible="state != 'send_request'" />
+                    <button name="request_accept_btn" type="object" string="Accept the order" class="btn btn-secondary" invisible="state != 'tech_assign'" />
+                    <button name="in_way_btn" type="object" string="In the way" class="btn btn-secondary" invisible="state != 'request_accept'" />
+                    <button name="wo_started_btn" type="object" string="Execute started" class="btn btn-secondary" invisible="state != 'in_way'" />
+                    <button name="open_services" type="object" string="Services Entry" class="btn btn-secondary" invisible="state != 'wo_started' or wo_state != 'main_info'" />
+                    <button name="back_to_main_info" type="object" string="Back To Main" class="btn btn-secondary" invisible="wo_state != 'services'" />
+                    <button name="preview_btn" type="object" string="preview" class="btn btn-secondary" invisible="wo_state in ['main_info','preview']" />
+                    <button name="comptete_btn" type="object" string="Complete" class="btn btn-secondary" invisible="state != 'wo_started'" />
+                    <button name="create_sale_order" type="object" string="Create Invoice" class="btn btn-secondary" invisible="account_move_id != False or state != 'comptete'" />
+                    <!-- <button name="action_convert_to_work_order" type="object" string="Convert to Work Order" class="btn btn-primary" invisible="state != 'confirm'"/> -->
+                    <field name="state" widget="statusbar"></field>
+ 
                 </header>
-
-                <sheet>
+                <sheet>                      
                     <field name="wo_state" invisible="1"/>
                     <field name="account_move_id" invisible="1"/>
 
+                 
                     <notebook>
-                        <!-- Main Info -->
-                        <page string="Main Information"
-                              invisible="wo_state == 'services'">
+                        <page invisible="wo_state == 'services'" string="Main Information">
                             <group>
                                 <group>
+                                    <field name="salesman_domain" invisible="1"/>
+
                                     <field name="order_seq" readonly="1"/>
                                     <field name="created_order_date" readonly="1"/>
                                     <field name="partner_id"/>
                                     <field name="mobile_number"/>
-                                    <field name="company_id"/>
+                                    <field name="company_id" />
                                     <field name="car_notes"/>
-                                    <field name="salesman_id"
-                                           options="{'no_quick_create':True,
-                                                     'no_create_edit':True,
-                                                     'no_open':True,
-                                                     'no_create':True}"/>
+                                    <field name="salesman_domain" invisible= "1"/>
+                                    <field name="salesman_enable" invisible= "1"/>
+                                   <field name="salesman_id"   domain="salesman_domain"  readonly=" not salesman_enable" 
+                                                 options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create': True}"/>
+                                 
+
+
                                 </group>
+
                                 <group>
                                     <field name="order_date"/>
-                                    <field name="car_number"/>
-                                    <field name="car_letters"/>
+                                    <field name="car_number" widget="convertNumberFeild"  />
+                                    <field name="car_letters" widget="convertLettersFeild"  />
+                                        
                                     <field name="car_type_id"/>
                                     <field name="car_model"/>
                                     <field name="car_version_id"/>
                                     <field name="vin_no"/>
                                     <field name="current_distance"/>
+                                  
+                                    
                                 </group>
+                            
+                            
                             </group>
                         </page>
-
-                        <!-- Services -->
-                        <page string="Services"
-                              invisible="wo_state == 'main_info'">
+                        <page invisible="wo_state == 'main_info'" string="Services">
+                          
                             <group>
                                 <group>
                                     <field name="oil_distance_type_id"/>
                                     <field name="oil_brand_id"/>
                                     <field name="car_size_id"/>
+                                
                                 </group>
                             </group>
                             <notebook>
                                 <page string="Services">
                                     <field name="order_line">
                                         <tree editable="bottom">
-                                            <field name="package_id"/>
-                                            <field name="service_product_id"/>
+                                            <button name="open_package_lines"
+                                                type="object"
+                                                string="Package Details"
+                                                class="p-0 o_no_button text-danger"
+                                               
+                                                colspan="2" />
+                                           <field name="price_readonly" column_invisible= "1" />
+
+                                            <field name="service_id"  column_invisible= "1"/>
+                                            <field name="package_id"  />
+                                            <field name="service_product_id" />
                                             <field name="description"/>
-                                            <field name="product_id"/>
+                                            <field name="product_id" readonly="package_id" required="service_id.storable_product_required == True"/>
                                             <field name="quantity" sum="Quantity"/>
-                                            <field name="unit_price"/>
+                                            <field name="unit_price" force_save="1" readonly="price_readonly == True"/>
                                             <field name="tax_id"/>
-                                            <field name="price_subtotal" sum="Subtotal"/>
+
+                                            <field name="price_subtotal" sum="price_total before Tax"/>
                                             <field name="price_tax" sum="Tax"/>
-                                            <field name="price_total" sum="Total"/>
+                                            <field name="price_total" sum="Price Total"/>
                                         </tree>
                                     </field>
                                 </page>
                                 <page string="Other Information">
                                     <group>
-                                        <field name="picking_type_id"/>
-                                        <field name="company_id" readonly="1"/>
-                                        <field name="employee_id" readonly="1"/>
+                                    <field name="picking_type_id"/>
+                                        <field name="company_id" readonly="1" force_save="1"/>
+                                        <field name="employee_id"   readonly="1" force_save="1"/>
                                     </group>
                                     <group>
-                                        <field name="latitude" readonly="1"/>
-                                        <field name="longitude" readonly="1"/>
+                                        
+                                        <field name="latitude" readonly="1" force_save="1"/>
+                                        <field name="longitude"   readonly="1" force_save="1"/>
                                     </group>
                                 </page>
                             </notebook>
@@ -177,12 +154,13 @@
     </record>
 
     <!-- Kanban View -->
-    <record id="view_work_order_app_kanban" model="ir.ui.view">
+    <record id="view_work_order_temp_kanban" model="ir.ui.view">
         <field name="name">oil.work.order.app.kanban</field>
         <field name="model">oil.work.order.app</field>
         <field name="arch" type="xml">
-            <kanban>
+            <kanban  >
                 <field name="partner_id"/>
+                <!-- <field name="partner_name"/> -->
                 <field name="car_number"/>
                 <field name="state"/>
                 <field name="order_date"/>
@@ -190,13 +168,12 @@
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click card o_kanban_record">
                             <div class="p-2">
+                                <!-- <strong><field name="partner_name"/></strong><br/> -->
                                 <strong><field name="partner_id"/></strong><br/>
                                 <span><field name="car_number"/></span><br/>
                                 <span class="text-muted"><field name="order_date"/></span>
                                 <div>
-                                    <span class="badge badge-info">
-                                        <field name="state"/>
-                                    </span>
+                                    <span class="badge badge-info"><field name="state"/></span>
                                 </div>
                             </div>
                         </div>
