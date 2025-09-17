@@ -105,7 +105,7 @@ class WorkOrderTemp(models.Model):
             rec.write({'wo_state': 'preview'})
     def comptete_btn (self):
         for rec in self:
-            rec.write({'wo_state': 'comptete'})
+            rec.write({'state': 'comptete'})
 
 
  
