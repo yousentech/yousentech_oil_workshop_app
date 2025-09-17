@@ -97,7 +97,6 @@ class WorkOrderTemp(models.Model):
          
             return result
  
-    
     def create_sale_order(self):
         self.ensure_one()
         self._validate_entries()
@@ -373,7 +372,7 @@ class WorkOrderTemp(models.Model):
 
     @api.model
     def create(self, vals):
-        if 'order_seq' in vals['order_seq']:
+        if 'order_seq' in vals:
             check_seq = self.env['oil.work.order.app'].search([('order_seq','=',vals['order_seq'])])
             if check_seq:
                 sql_query = "select max(COALESCE(order_seq,0)) as seq from oil_work_order_app where company_id='%s'" % self.company_id.id
