@@ -109,9 +109,9 @@
                                                 class="p-0 o_no_button text-danger"
                                                
                                                 colspan="2" />
-                                           <field name="price_readonly" invisible= "1" />
+                                           <field name="price_readonly" column_invisible= "1" />
 
-                                            <field name="service_id"  />
+                                            <field name="service_id"  column_invisible= "1"/>
                                             <field name="package_id"  />
                                             <field name="service_product_id" />
                                             <field name="description"/>
