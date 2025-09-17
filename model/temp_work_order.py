@@ -81,6 +81,19 @@ class WorkOrderTemp(models.Model):
         
     )
 
+    def request_accept_btn(self):
+        for rec in self:
+            rec.write({'state': 'request_accept'})
+
+    def in_way_btn(self):
+        for rec in self:
+            rec.write({'state': 'in_way'})
+    
+    def wo_started_btn(self):
+        for rec in self:
+            rec.write({'state': 'wo_started'})
+
+
     def open_services(self):
         for rec in self:
             rec.write({'wo_state': 'services'})
@@ -88,10 +101,10 @@ class WorkOrderTemp(models.Model):
             
     def back_to_main_info(self):
         for rec in self:
-            rec.write({'state': 'main_info'})
+            rec.write({'wo_state': 'main_info'})
     def preview_btn(self):
         for rec in self:
-            rec.write({'state': 'preview'})
+            rec.write({'wo_state': 'preview'})
 
 
  
