@@ -10,7 +10,18 @@ class WorkOrderTemp(models.Model):
     _rec_name = "partner_id"
 
     order_seq = fields.Integer(string="Sequences", required=True)
-    state = fields.Selection(selection=[('draft', 'Customer Info'), ('services', 'Services'), ('confirm', 'confirmed'), ('cancel_confirm', 'Cancel Confirm'), ('cancel_request', 'Cancel Request'), ('in_service', 'Completed')], string='Status', default='draft', tracking=True)
+    state = fields.Selection(selection=[('send_request', 'Send Request'), 
+                                        ('tech_assign', 'Technician Assignment'), 
+                                        ('request_accept', 'Request Accepted'),
+                                        ('in_way', 'In the way'), 
+                                        ('wo_started', 'Work started'),
+                                        ('comptete', 'Completed')], string='Status', default='send_request', tracking=True)
+    wo_state = fields.Selection(selection=[ ('main_info', 'main info'),
+                                              ('services', 'services'), 
+                                               ('preview', 'preview'), 
+                                              ],
+
+                                         string='Status', default='main_info', tracking=True)
     oil_brand_id = fields.Many2one('oil.brands', string="Oil Brand",)
    
     oil_distance_type_id = fields.Many2one('oil.vehicle.distance',string="Vehicle distance Type")
@@ -72,12 +83,17 @@ class WorkOrderTemp(models.Model):
 
     def open_services(self):
         for rec in self:
-            rec.write({'state': 'services'})
+            rec.write({'wo_state': 'services'})
 
             
     def back_to_main_info(self):
         for rec in self:
-            rec.write({'state': 'draft'})
+            rec.write({'state': 'main_info'})
+    def preview_btn(self):
+        for rec in self:
+            rec.write({'state': 'preview'})
+
+
  
     @api.depends('create_date')
     def _compute_create_date_only(self):
