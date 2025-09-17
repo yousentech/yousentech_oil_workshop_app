@@ -10,8 +10,8 @@
     </record>
 
     <!-- Menu item -->
-    <menuitem id="menu_work_order_temp" name="Temporary Orders" 
-              parent="yousentech_oil_workshop.menu_operation" 
+    <menuitem id="menu_work_order_temp" name="Temporary Orders"
+              parent="yousentech_oil_workshop.menu_operation"
               groups="yousentech_oil_workshop.group_allow_access_external_requests"
               action="action_work_order_temp" sequence="10"/>
 
@@ -38,15 +38,24 @@
         <field name="arch" type="xml">
             <form string="Temporary Work Order">
                 <header>
-                    <button name="select_car_service" type="object" string="Select Car Service" class="btn btn-primary" invisible="state != 'send_request'" />
-                    <button name="request_accept_btn" type="object" string="Accept the order" class="btn btn-success" invisible="state != 'tech_assign'" />
-                    <button name="in_way_btn" type="object" string="In the way" class="btn btn-warning" invisible="state != 'request_accept'" />
-                    <button name="wo_started_btn" type="object" string="Execute started" class="btn btn-info" invisible="state != 'in_way'" />
-                    <button name="open_services" type="object" string="Services Entry" class="btn btn-secondary" invisible="state != 'wo_started' or wo_state != 'main_info'" />
-                    <button name="back_to_main_info" type="object" string="Back To Main" class="btn btn-dark" invisible="wo_state != 'services'" />
-                    <button name="preview_btn" type="object" string="Preview" class="btn btn-info" invisible="wo_state in ['main_info','preview']" />
-                    <button name="comptete_btn" type="object" string="Complete" class="btn btn-danger" invisible="state != 'wo_started'" />
-                    <button name="create_sale_order" type="object" string="Create Invoice" class="btn btn-success" invisible="account_move_id != False or state != 'comptete'" />
+                    <button name="select_car_service" type="object" string="Select Car Service"
+                            class="btn btn-primary" invisible="state != 'send_request'"/>
+                    <button name="request_accept_btn" type="object" string="Accept the order"
+                            class="btn btn-success" invisible="state != 'tech_assign'"/>
+                    <button name="in_way_btn" type="object" string="In the way"
+                            class="btn btn-warning" invisible="state != 'request_accept'"/>
+                    <button name="wo_started_btn" type="object" string="Execute started"
+                            class="btn btn-info" invisible="state != 'in_way'"/>
+                    <button name="open_services" type="object" string="Services Entry"
+                            class="btn btn-secondary" invisible="state != 'wo_started' or wo_state != 'main_info'"/>
+                    <button name="back_to_main_info" type="object" string="Back To Main"
+                            class="btn btn-dark" invisible="wo_state != 'services'"/>
+                    <button name="preview_btn" type="object" string="Preview"
+                            class="btn btn-info" invisible="wo_state in ['main_info','preview']"/>
+                    <button name="comptete_btn" type="object" string="Complete"
+                            class="btn btn-danger" invisible="state != 'wo_started'"/>
+                    <button name="create_sale_order" type="object" string="Create Invoice"
+                            class="btn btn-success" invisible="account_move_id != False or state != 'comptete'"/>
                     <field name="state" widget="statusbar"/>
                 </header>
 
@@ -97,13 +106,15 @@
                                 <page string="Services">
                                     <field name="order_line">
                                         <tree editable="bottom">
-                                            <button name="open_package_lines" type="object" string="Package Details" class="p-0 o_no_button text-danger" colspan="2"/>
+                                            <button name="open_package_lines" type="object" string="Package Details"
+                                                    class="p-0 o_no_button text-danger" colspan="2"/>
                                             <field name="price_readonly" column_invisible="1"/>
                                             <field name="service_id" column_invisible="1"/>
                                             <field name="package_id"/>
                                             <field name="service_product_id"/>
                                             <field name="description"/>
-                                            <field name="product_id" readonly="package_id" required="service_id.storable_product_required == True"/>
+                                            <field name="product_id" readonly="package_id"
+                                                   required="service_id.storable_product_required == True"/>
                                             <field name="quantity" sum="Quantity"/>
                                             <field name="unit_price" force_save="1" readonly="price_readonly == True"/>
                                             <field name="tax_id"/>
@@ -159,29 +170,4 @@
             </kanban>
         </field>
     </record>
-
-    <!-- Custom CSS for Tabs -->
-    <template id="assets_backend" name="Custom Tab Colors" inherit_id="web.assets_backend">
-        <xpath expr="." position="inside">
-            <style>
-                /* Tab active */
-                .o_notebook .nav-tabs .nav-link.active {
-                    background-color: #007bff !important; /* أزرق */
-                    color: #fff !important;
-                    border-radius: 6px;
-                }
-                /* Other tabs */
-                .o_notebook .nav-tabs .nav-link {
-                    background-color: #f1f1f1;
-                    margin-right: 4px;
-                    border-radius: 6px;
-                    color: #333;
-                }
-                /* Hover effect */
-                .o_notebook .nav-tabs .nav-link:hover {
-                    background-color: #e2e6ea;
-                }
-            </style>
-        </xpath>
-    </template>
 </odoo>

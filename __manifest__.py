@@ -16,6 +16,11 @@
         "view/message_confirm_temp.xml",
      ],
     'images': ['static/description/icon.png'],
+    'assets': {
+    'web.assets_backend': [
+        'yousentech_oil_workshop/static/src/css/custom_style.css',
+                    ],
+                },
     'license': 'LGPL-3',
     'sequence': '-100',
     'installable': True,
