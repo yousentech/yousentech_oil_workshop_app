@@ -55,6 +55,8 @@
                         <page invisible="state != 'draft'" string="Main Information">
                             <group>
                                 <group>
+                                    <field name="salesman_domain" invisible="1"/>
+
                                     <field name="order_seq" readonly="1"/>
                                     <field name="created_order_date" readonly="1"/>
                                     <field name="partner_id"/>
