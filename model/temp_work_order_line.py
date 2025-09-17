@@ -147,6 +147,11 @@ class work_order_line(models.Model):
             result = action.read()[0]
             result.pop('id', None)
             result['domain'] = [('id','=',package_detail.id)]
+            if package_detail:
+                res = self.env.ref('yousentech_oil_workshop_app.view_oil_wo_package_detail_form', False)
+                result['views'] = [(res and res.id or False, 'form')]
+                result['res_id'] = package_detail.id or False
+               
             return result
 
 
