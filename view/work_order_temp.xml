@@ -48,7 +48,7 @@
                     <button name="back_to_main_info" type="object" string="Back To Main" class="btn btn-secondary" invisible="wo_state != 'services'" />
                     <button name="preview_btn" type="object" string="preview" class="btn btn-secondary" invisible="wo_state in ['main_info','preview']" />
                     <button name="comptete_btn" type="object" string="Complete" class="btn btn-secondary" invisible="state != 'wo_started'" />
-                    <button name="create_sale_order" type="object" string="Create Invoice" class="btn btn-secondary" invisible="state != 'comptete'" />
+                    <button name="create_sale_order" type="object" string="Create Invoice" class="btn btn-secondary" invisible="account_move_id != False or state != 'comptete'" />
                     <!-- <button name="action_convert_to_work_order" type="object" string="Convert to Work Order" class="btn btn-primary" invisible="state != 'confirm'"/> -->
                     <field name="state" widget="statusbar"></field>
  
