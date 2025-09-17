@@ -57,7 +57,7 @@
  
                 </header>
                 <sheet>                      
-                     <field name="wo_state " invisible="1"/>
+                    <field name="wo_state "/>
 
                  
                     <notebook>
