@@ -373,23 +373,23 @@ class WorkOrderTemp(models.Model):
 
     @api.model
     def create(self, vals):
-       
-        check_seq = self.env['oil.work.order.app'].search([('order_seq','=',vals['order_seq'])])
-        if check_seq:
-            sql_query = "select max(COALESCE(order_seq,0)) as seq from oil_work_order_app where company_id='%s'" % self.company_id.id
-            self.env.cr.execute(sql_query)
-            seq = self.env.cr.fetchone()
-            x = seq[0]
-            if x:
-                x = x + 1
-               
-                vals['order_seq'] = x
-              
+        if 'order_seq' in vals['order_seq']:
+            check_seq = self.env['oil.work.order.app'].search([('order_seq','=',vals['order_seq'])])
+            if check_seq:
+                sql_query = "select max(COALESCE(order_seq,0)) as seq from oil_work_order_app where company_id='%s'" % self.company_id.id
+                self.env.cr.execute(sql_query)
+                seq = self.env.cr.fetchone()
+                x = seq[0]
+                if x:
+                    x = x + 1
+                
+                    vals['order_seq'] = x
+                
+            
+                else:
+                    x = 1
+                    vals['order_seq'] = x
         
-            else:
-                x = 1
-                vals['order_seq'] = x
-       
         res = super(WorkOrderTemp, self).create(vals)
 
         if res.company_id.salesman_required:
