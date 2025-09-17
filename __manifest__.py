@@ -11,6 +11,7 @@
         "view/services.xml",
         "view/service_type.xml",
         "view/package_app.xml",
+        "view/package_detail.xml",
         "view/work_order_temp.xml",
         "view/message_confirm_temp.xml",
      ],
