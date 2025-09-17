@@ -126,7 +126,28 @@ class work_order_line(models.Model):
             return service_detail
 
     def open_package_lines(self):
-        return True
+        for rec in self:
+            package_detail = self.env['oil.wo.package.detail'].search([('package_id','=', rec.package_id.id),('work_order_line_id','=', rec.id)])
+            if not package_detail:
+                line_ids = []
+                for l in rec.package_id.package_services_line_ids:
+                    line_dict = {'service_id': l.service_id.id}
+                
+                    line_ids.append((0, 0, transport_line_ids))
+
+    
+                if line_ids:
+                    package_detail = self.env['oil.wo.package.detail'].create({'
+                        'package_id': rec.package_id.id,
+                        'work_order_line_id': rec.id,
+                        'pckage_line_ids': line_ids, })
+
+            action = self.env.ref('yousentech_oil_workshop_app.action_oil_wo_package_detail')
+            domain=[('id','=',package_detail.id)]
+            result = action.read()[0]
+            result.pop('id', None)
+         
+            return result
 
 
 

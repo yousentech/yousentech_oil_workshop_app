@@ -3,7 +3,7 @@
         <field name="name">view_oil_wo_package_detail_form</field>
         <field name="model">oil.wo.package.detail</field>
         <field name="arch" type="xml">
-            <form string="Package">
+            <form string="Package" create="0" delete="0">
                 <sheet>
                     <group>
                         <group>

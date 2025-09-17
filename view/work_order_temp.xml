@@ -104,7 +104,6 @@
                                                 string="Package Details"
                                                 class="p-0 o_no_button text-danger"
                                                 icon="fa-trash"
-                                                invisible="parent.state not in ['draft'] or package_id == False "
                                                 colspan="2" />
                                            <field name="price_readonly" invisible= "1" />
 
