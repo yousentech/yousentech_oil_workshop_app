@@ -18,10 +18,8 @@ class WorkOrderTemp(models.Model):
                                         ('comptete', 'Completed')], string='Status', default='send_request', tracking=True)
     wo_state = fields.Selection(selection=[ ('main_info', 'main info'),
                                               ('services', 'services'), 
-                                               ('preview', 'preview'), 
-                                              ],
-
-                                         string='Status', default='main_info', tracking=True)
+                                               ('preview', 'preview'), ], 
+                                                 string='Status', default='main_info', tracking=True)
     oil_brand_id = fields.Many2one('oil.brands', string="Oil Brand",)
    
     oil_distance_type_id = fields.Many2one('oil.vehicle.distance',string="Vehicle distance Type")
@@ -105,6 +103,9 @@ class WorkOrderTemp(models.Model):
     def preview_btn(self):
         for rec in self:
             rec.write({'wo_state': 'preview'})
+    def comptete_btn (self):
+        for rec in self:
+            rec.write({'wo_state': 'comptete'})
 
 
  
