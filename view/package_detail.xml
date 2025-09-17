@@ -1,0 +1,40 @@
+<odoo>
+    <record id="view_oil_wo_package_detail_form" model="ir.ui.view">
+        <field name="name">view_oil_wo_package_detail_form</field>
+        <field name="model">oil.wo.package.detail</field>
+        <field name="arch" type="xml">
+            <form string="Package">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="package_id" readonly="1" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create': True}" />
+                       
+                        </group>
+                        
+                    </group>
+
+                    <notebook>
+                        <page string="Package Detail">
+                            <field name="pckage_line_ids" create="0" delete="0" >
+                                <tree editable="bottom">
+                                    <field name="service_id"  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create': True}" />
+                                    <field name="product_id"  required="service_id.storable_product_required == True"  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create': True}" />
+                                    
+                                </tree>
+
+                                
+                            </field>
+                        </page>
+                         
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_oil_wo_package_detail" model="ir.actions.act_window">
+        <field name="name">Package Detail</field>
+        <field name="res_model">oil.wo.package.detail</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_oil_wo_package_detail_form" />
+    </record>
+</odoo>
