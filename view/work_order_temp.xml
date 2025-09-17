@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+    <!-- Menu Root -->
+    <menuitem id="menu_work_order_root"
+              name="Work Orders"
+              sequence="10"/>
+
+    <!-- Sub Menu -->
+    <menuitem id="menu_work_order_app"
+              name="Orders"
+              parent="menu_work_order_root"
+              action="action_work_order_app"
+              sequence="20"/>
+
     <!-- Action -->
     <record id="action_work_order_app" model="ir.actions.act_window">
         <field name="name">Work Orders</field>
