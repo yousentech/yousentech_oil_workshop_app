@@ -54,12 +54,13 @@
                     <button name="create_sale_order" type="object" string="Create Invoice" class="btn btn-secondary" invisible="state != 'comptete'" />
                     <!-- <button name="action_convert_to_work_order" type="object" string="Convert to Work Order" class="btn btn-primary" invisible="state != 'confirm'"/> -->
                     <field name="state" widget="statusbar"></field>
+                    <field name="wo_state" widget="statusbar"></field>
 
                 </header>
                 <sheet>
                  
                     <notebook>
-                        <page invisible="wo_state = 'services'" string="Main Information">
+                        <page invisible="wo_state == 'services'" string="Main Information">
                             <group>
                                 <group>
                                     <field name="salesman_domain" invisible="1"/>
@@ -97,7 +98,7 @@
                             
                             </group>
                         </page>
-                        <page invisible="wo_state = 'main_info'" string="Services">
+                        <page invisible="wo_state == 'main_info'" string="Services">
                           
                             <group>
                                 <group>
