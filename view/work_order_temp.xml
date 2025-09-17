@@ -21,7 +21,7 @@
         <field name="model">oil.work.order.app</field>
         <field name="arch" type="xml">
             <tree string="Temporary Work Orders" >
-                <!-- <field name="order_seq"/> -->
+                <field name="order_seq"/>
                 <field name="partner_id"/>
                 <!-- <field name="partner_name"/>
                 <field name="mobile_number"/> -->
