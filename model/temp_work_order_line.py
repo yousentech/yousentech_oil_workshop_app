@@ -143,10 +143,10 @@ class work_order_line(models.Model):
                         'pckage_line_ids': line_ids})
             print("package_detail================",package_detail)
             action = self.env.ref('yousentech_oil_workshop_app.action_oil_wo_package_detail')
-            domain=[('id','=',package_detail.id)]
+          
             result = action.read()[0]
             result.pop('id', None)
-         
+            result['domain'] = [('id','=',package_detail.id)]
             return result
 
 
