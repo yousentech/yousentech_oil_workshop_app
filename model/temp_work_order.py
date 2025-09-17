@@ -354,7 +354,7 @@ class WorkOrderTemp(models.Model):
             else:
                 rec.salesman_domain = []
 
-        @api.onchange('company_id')
+    @api.onchange('company_id')
     def _get_new_order_seq(self):
         sql_query = ""
         if self.company_id:
