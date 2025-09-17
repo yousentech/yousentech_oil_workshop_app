@@ -50,7 +50,7 @@ class WorkOrderTemp(models.Model):
     salesman_id = fields.Many2one(
         "salesman", string="Salesman", default=lambda self: self._default_salesman())
     salesman_enable = fields.Boolean(
-        compute="_compute_salesman_readonly",
+        # compute="_compute_salesman_readonly",
         default=lambda self: self.default_salesman_readonly(),
     )
     salesman_domain = fields.Char("salesman_domain", compute="_compute_salesman_domain")
