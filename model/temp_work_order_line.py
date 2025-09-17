@@ -133,7 +133,7 @@ class work_order_line(models.Model):
                 for l in rec.package_id.package_services_line_ids:
                     line_dict = {'service_id': l.service_id.id}
                 
-                    line_ids.append((0, 0, transport_line_ids))
+                    line_ids.append((0, 0, line_dict))
 
     
                 if line_ids:
