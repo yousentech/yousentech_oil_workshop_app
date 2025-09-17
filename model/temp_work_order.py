@@ -16,7 +16,7 @@ class WorkOrderTemp(models.Model):
                                         ('in_way', 'In the way'), 
                                         ('wo_started', 'Work started'),
                                         ('comptete', 'Completed')], string='Status', default='send_request', tracking=True)
-    wo_state = fields.Selection(selection=[ ('main_info', 'main info'),
+    wo_state = fields.Selection(selection=[('main_info', 'main info'),
                                               ('services', 'services'), 
                                                ('preview', 'preview'), ], 
                                                  string='Status', default='main_info', tracking=True)

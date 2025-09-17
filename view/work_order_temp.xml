@@ -54,8 +54,7 @@
                     <button name="create_sale_order" type="object" string="Create Invoice" class="btn btn-secondary" invisible="state != 'comptete'" />
                     <!-- <button name="action_convert_to_work_order" type="object" string="Convert to Work Order" class="btn btn-primary" invisible="state != 'confirm'"/> -->
                     <field name="state" widget="statusbar"></field>
-                    <field name="wo_state" widget="statusbar"></field>
-
+ 
                 </header>
                 <sheet>
                  
