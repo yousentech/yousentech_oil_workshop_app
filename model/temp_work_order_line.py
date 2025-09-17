@@ -141,7 +141,6 @@ class work_order_line(models.Model):
                         'package_id': rec.package_id.id,
                         'work_order_line_id': rec.id,
                         'pckage_line_ids': line_ids})
-            print("package_detail================",package_detail)
             action = self.env.ref('yousentech_oil_workshop_app.action_oil_wo_package_detail')
           
             result = action.read()[0]

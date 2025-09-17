@@ -117,7 +117,7 @@
                                             <field name="description"/>
                                             <field name="product_id" readonly="package_id" required="service_id.storable_product_required == True"/>
                                             <field name="quantity" sum="Quantity"/>
-                                            <field name="unit_price" readonly="price_readonly == True"/>
+                                            <field name="unit_price" force_save="1" readonly="price_readonly == True"/>
                                             <field name="tax_id"/>
 
                                             <field name="price_subtotal" sum="price_total before Tax"/>
