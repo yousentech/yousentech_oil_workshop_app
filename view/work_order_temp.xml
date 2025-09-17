@@ -61,6 +61,8 @@
                                     <field name="mobile_number"/>
                                     <field name="company_id" />
                                     <field name="car_notes"/>
+                                    <field name="salesman_domain" invisible= "1"/>
+                                    <field name="salesman_enable" invisible= "1"/>
                                    <field name="salesman_id"   domain="salesman_domain"  readonly=" not salesman_enable" 
                                                  options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create': True}"/>
                                  
