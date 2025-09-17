@@ -36,7 +36,7 @@ class WorkOrderTemp(models.Model):
     city_id = fields.Many2one('oil.city', string='City',)
     picking_type_id = fields.Many2one('stock.picking.type', string='Place Of sale', domain="[('code', '=', ['outgoing']),('company_id','=',company_id)]", required=False)
     negative_quantity_flag = fields.Boolean(string='Failure verify available quantity', default=False)
-    sale_order_id = fields.Many2one('sale.order')
+    # sale_order_id = fields.Many2one('sale.order')
     car_model = fields.Integer(string='Car Model')
     car_version_id = fields.Many2one('oil.car.version', string='Car Version')
     pin_code = fields.Char(string='Pin Code')
