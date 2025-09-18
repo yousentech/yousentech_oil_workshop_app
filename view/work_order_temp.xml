@@ -62,7 +62,7 @@
                                 <group>
                                     <field name="salesman_domain" invisible="1"/>
 
-                                    <field name="order_seq" readonly="1"/>
+                                    <field name="order_seq" readonly="1" force_save="1"/>
                                     <field name="created_order_date" readonly="1"/>
                                     <field name="partner_id"/>
                                     <field name="mobile_number"/>
