@@ -94,7 +94,7 @@
                             
                             </group>
                         </page>
-                        <page invisible="wo_state == 'main_info'" string="Services">
+                        <page invisible="wo_state == 'main_info'" string="Packages">
                           
                             <group>
                                 <group>
