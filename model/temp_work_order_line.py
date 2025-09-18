@@ -170,7 +170,7 @@ class work_order_package_detail_line(models.Model):
     header_id = fields.Many2one("oil.wo.package.detail",  ondelete="cascade",copy=False)
 
 class work_order_serivce_line(models.Model):
-    _name = 'oil.wo.service.line'
+    _name = 'oil.wo.app.service.line'
 
     service_product_id = fields.Many2one('product.product', string='Product', domain="[('detailed_type', 'in', ['service'])]",required=True)
     service_id = fields.Many2one('oil.services',string="Service",)
