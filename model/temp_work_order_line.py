@@ -217,7 +217,7 @@ class work_order_serivce_line(models.Model):
     def _check_product_categories(self):
         for order in self.mapped('order_id'):
             categories = {}
-            for line in order.order_line:
+            for line in order.order_service_line:
                 if line.product_id.categ_id in categories:
                     raise ValidationError(
                         _("Duplicate category detected: %s\n"
@@ -233,7 +233,7 @@ class work_order_serivce_line(models.Model):
     def _check_engine_oil_products(self):
         for order in self.mapped('order_id'):
             # Get all engine oils in the order
-            engine_oils = order.order_line.mapped('product_id').filtered(
+            engine_oils = order.order_service_line.mapped('product_id').filtered(
                 lambda p: p.product_tmpl_id.is_oil)
             
             # Rule 1: Only one engine oil type allowed
