@@ -148,8 +148,7 @@
                                 <page string="Services">
                                     <field name="order_service_line">
                                         <tree editable="bottom">
-                                            <button name="open_package_lines"
-                                            
+                                             
                                            <field name="price_readonly" column_invisible= "1" />
 
                                             <field name="service_id"  column_invisible= "1"/>
