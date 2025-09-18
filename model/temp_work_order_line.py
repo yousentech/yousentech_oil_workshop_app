@@ -8,7 +8,6 @@ class work_order_line(models.Model):
     service_product_id = fields.Many2one('product.product', string='Product', domain="[('detailed_type', 'in', ['service'])]",required=True)
     package_id = fields.Many2one('oil.package.app',string="Package")
     service_type_id = fields.Many2one('oil.service.type',string="Service type")
-    product_id = fields.Many2one('product.product', string='Product', domain="[('detailed_type', 'in', ['service','product'])]", help="Select a service-type product")
     description = fields.Text(string='Description', help='Detailed description of the service')
     quantity = fields.Float(string='Quantity', default=1.0, digits='Product Unit of Measure', help='Quantity of service units')
     unit_price = fields.Float(string='Unit Price', digits='Product Price', default=0.0, help='Price per unit of service')
