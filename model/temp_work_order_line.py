@@ -61,18 +61,18 @@ class work_order_line(models.Model):
                         ))
                 categories[line.product_id.categ_id] = line.product_id.name
      
-    @api.constrains('product_id', 'order_id')
-    def _check_engine_oil_products(self):
-        for order in self.mapped('order_id'):
-            # Get all engine oils in the order
-            engine_oils = order.order_line.mapped('product_id').filtered(
-                lambda p: p.product_tmpl_id.is_oil)
+    # @api.constrains('product_id', 'order_id')
+    # def _check_engine_oil_products(self):
+    #     for order in self.mapped('order_id'):
+    #         # Get all engine oils in the order
+    #         engine_oils = order.order_line.mapped('package_id').filtered(
+    #             lambda p: p.product_tmpl_id.is_oil)
             
-            # Rule 1: Only one engine oil type allowed
-            if len(engine_oils.mapped('product_tmpl_id')) > 1:
-                raise ValidationError(
-                    _("Multiple engine oil types detected!\n"
-                    "You can only have one type of engine oil per order."))
+    #         # Rule 1: Only one engine oil type allowed
+    #         if len(engine_oils.mapped('product_tmpl_id')) > 1:
+    #             raise ValidationError(
+    #                 _("Multiple engine oil types detected!\n"
+    #                 "You can only have one type of engine oil per order."))
             
     @api.onchange('package_id')
     def get_package_detail(self):
