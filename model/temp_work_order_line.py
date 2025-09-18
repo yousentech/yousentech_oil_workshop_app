@@ -6,7 +6,6 @@ class work_order_line(models.Model):
     _name = 'oil.wo.app.package.line'
 
     service_product_id = fields.Many2one('product.product', string='Product', domain="[('detailed_type', 'in', ['service'])]",required=True)
-    service_id = fields.Many2one('oil.services',string="Service",)
     package_id = fields.Many2one('oil.package.app',string="Package")
     service_type_id = fields.Many2one('oil.service.type',string="Service type")
     product_id = fields.Many2one('product.product', string='Product', domain="[('detailed_type', 'in', ['service','product'])]", help="Select a service-type product")
@@ -159,7 +158,7 @@ class work_order_package_detail(models.Model):
     _name = 'oil.wo.package.detail'
 
     package_id = fields.Many2one('oil.package.app',string="Package")
-    work_order_line_id = fields.Many2one('oil.wo.app.package.line',string="Package")
+    work_order_line_id = fields.Many2one('oil.work.order.app.line',string="Package")
     pckage_line_ids = fields.One2many("oil.wo.package.detail.line", "header_id", ondelete="cascade",copy=False)
     
      
@@ -169,7 +168,6 @@ class work_order_package_detail_line(models.Model):
     service_id = fields.Many2one('oil.services',string="Service",)
     product_id = fields.Many2one('product.product', string='Product', domain="[('detailed_type', 'in', ['service','product'])]", help="Select a service-type product",)
     header_id = fields.Many2one("oil.wo.package.detail",  ondelete="cascade",copy=False)
-
 
 class work_order_serivce_line(models.Model):
     _name = 'oil.wo.service.line'
