@@ -41,7 +41,9 @@ class WorkOrderTemp(models.Model):
     )
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company, required=True)
     employee_id = fields.Many2one('hr.employee', string='Employee',domain="[('techncian_emp_flag','=',True),('company_id','=',company_id)]")
-    order_line = fields.One2many("oil.work.order.app.line", "order_id", string="Orders",ondelete="cascade",copy=False)
+    order_line = fields.One2many("oil.wo.app.package.line", "order_id", string="Orders",ondelete="cascade",copy=False)
+    order_service_line = fields.One2many("oil.wo.app.service.line", "order_id", string="Orders",ondelete="cascade",copy=False)
+  
     city_id = fields.Many2one('oil.city', string='City',)
     picking_type_id = fields.Many2one('stock.picking.type', string='Place Of sale', domain="[('code', '=', ['outgoing']),('company_id','=',company_id)]", required=False)
     negative_quantity_flag = fields.Boolean(string='Failure verify available quantity', default=False)

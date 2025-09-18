@@ -8,7 +8,7 @@ access_oil_package_price_line,oil.package.price.line,model_oil_package_price_lin
 access_oil_package_services_line,oil.package.services.line,model_oil_package_services_line,,1,1,1,1
 
 access_oil_work_order_app,oil.work.order.app,model_oil_work_order_app,,1,1,1,1
-access_oil_work_order_app_line,oil.work.order.app.line,model_oil_work_order_app_line,,1,1,1,1
+access_oil_wo_app_package_line,oil.wo.app.package.line,model_oil_wo_app_package_line,,1,1,1,1
 
 access_oil_wo_package_detail,oil.wo.package.detail,model_oil_wo_package_detail,,1,1,1,1
 access_oil_wo_package_detail_line,oil.wo.package.detail.line,model_oil_wo_package_detail_line,,1,1,1,1

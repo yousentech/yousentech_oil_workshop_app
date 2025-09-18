@@ -56,8 +56,6 @@
                 <sheet>                      
                     <field name="wo_state" invisible="1"/>
                     <field name="account_move_id" invisible="1"/>
-
-                 
                     <notebook>
                         <page invisible="wo_state == 'services'" string="Main Information">
                             <group>
@@ -117,9 +115,7 @@
                                                
                                                 colspan="2" />
                                            <field name="price_readonly" column_invisible= "1" />
-
-                                            <field name="service_id"  column_invisible= "1"/>
-                                            <field name="package_id"  />
+                                             <field name="package_id"  />
                                             <field name="service_product_id" />
                                             <field name="description"/>
                                             <field name="product_id" readonly="package_id" required="service_id.storable_product_required == True"/>
@@ -147,6 +143,49 @@
                                 </page>
                             </notebook>
                         </page>
+                        <page invisible="wo_state == 'main_info'" string="Services">
+                           
+                            <notebook>
+                                <page string="Services">
+                                    <field name="order_service_line">
+                                        <tree editable="bottom">
+                                            <button name="open_package_lines"
+                                                type="object"
+                                                string="Package Details"
+                                                class="p-0 o_no_button text-danger"
+                                               
+                                                colspan="2" />
+                                           <field name="price_readonly" column_invisible= "1" />
+
+                                            <field name="service_id"  column_invisible= "1"/>
+                                             <field name="service_product_id" />
+                                            <field name="description"/>
+                                            <field name="product_id" readonly="package_id" required="service_id.storable_product_required == True"/>
+                                            <field name="quantity" sum="Quantity"/>
+                                            <field name="unit_price" force_save="1" readonly="price_readonly == True"/>
+                                            <field name="tax_id"/>
+
+                                            <field name="price_subtotal" sum="price_total before Tax"/>
+                                            <field name="price_tax" sum="Tax"/>
+                                            <field name="price_total" sum="Price Total"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="Other Information">
+                                    <group>
+                                    <field name="picking_type_id"/>
+                                        <field name="company_id" readonly="1" force_save="1"/>
+                                        <field name="employee_id"   readonly="1" force_save="1"/>
+                                    </group>
+                                    <group>
+                                        
+                                        <field name="latitude" readonly="1" force_save="1"/>
+                                        <field name="longitude"   readonly="1" force_save="1"/>
+                                    </group>
+                                </page>
+                            </notebook>
+                        </page>
+                        
                     </notebook>
                 </sheet>
             </form>
