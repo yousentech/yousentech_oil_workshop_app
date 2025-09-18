@@ -45,21 +45,21 @@ class work_order_line(models.Model):
                 raise ValidationError(_(
                     "Unit price cannot be negative!"))
                       
-    @api.constrains('product_id', 'order_id')
-    def _check_product_categories(self):
-        for order in self.mapped('order_id'):
-            categories = {}
-            for line in order.order_line:
-                if line.product_id.categ_id in categories:
-                    raise ValidationError(
-                        _("Duplicate category detected: %s\n"
-                        "Existing product: %s\n"
-                        "New product: %s") % (
-                        line.product_id.categ_id.name,
-                        categories[line.product_id.categ_id],
-                        line.product_id.name
-                        ))
-                categories[line.product_id.categ_id] = line.product_id.name
+    # @api.constrains('product_id', 'order_id')
+    # def _check_product_categories(self):
+    #     for order in self.mapped('order_id'):
+    #         categories = {}
+    #         for line in order.order_line:
+    #             if line.product_id.categ_id in categories:
+    #                 raise ValidationError(
+    #                     _("Duplicate category detected: %s\n"
+    #                     "Existing product: %s\n"
+    #                     "New product: %s") % (
+    #                     line.product_id.categ_id.name,
+    #                     categories[line.product_id.categ_id],
+    #                     line.product_id.name
+    #                     ))
+    #             categories[line.product_id.categ_id] = line.product_id.name
      
     # @api.constrains('product_id', 'order_id')
     # def _check_engine_oil_products(self):
